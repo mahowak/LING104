@@ -87,6 +87,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |4/15| The dangers of data | | Due at beginning of class: Problem set 1 (Tidyverse)|
 
 ### Descriptive Statistics
+
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
 |4/20| Means and models | Winter 3.1-3.4 | Due: Mini-assignment|
@@ -96,6 +97,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |5/4| Word frequency data | Winter 4.1-4.5| |
 
 ### Linear models, correlation, regression
+
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
 |5/6| Linear models I | Winter 4.5-4.9 | Due at beginning of class: Textbook exercises|
@@ -104,6 +106,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |5/18| Designing experiments: best practices and ethics|   | Due at beginning of class: Problem Set 3|
 
 ### Multiple regression 
+
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
 |5/20| Multiple Regression I | Winter 6.1-6.6 | |
