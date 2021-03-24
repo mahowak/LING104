@@ -20,7 +20,7 @@ Doing linguistics, or any kind of science, requires thinking about data. In this
 
 ### Learning outcomes:
 
-1) **You will be able to get data, analyze it in R, and say interesting things about it.** Knowing how to analyze data is a valuable skill. Imagine that someone runs up to you and says: "help, I need to know what is going on in this data." By the time you leave this course, you will know how to take that data, make some graphs of it, and draw somem statistical conclusions.
+1) **You will be able to get data, analyze it in R, and say interesting things about it.** Knowing how to analyze data is a valuable skill. Imagine that someone runs up to you and says: "Help, I need to know what is going on in this data." By the time you leave this course, you will know how to take that data, make some graphs of it, and draw some statistical conclusions.
 
 2) **You will learn how to come up with an experimental hypothesis and collect data to test that hypothesis.** To that end, in each class, we will spend time discussing and demonstrating methods. In the class projects, you will learn to design experiments and deploy these methods.
 
@@ -75,7 +75,7 @@ Hateful actions based on race, ethnicity, religion, gender, sexual orientation, 
 
 ### Getting started in R
 
-We will spend the first few weeks getting started in R, learning to make plots and use the RStudio interface that will be at the center of this course. The first unit culminatse in a project.
+We will spend the first few weeks getting started in R, learning to make plots and use the RStudio interface that will be at the center of this course. The first unit culminates in a project.
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
