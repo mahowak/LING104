@@ -1,4 +1,4 @@
-# UCSB LING 104: Psychology of Language
+# UCSB LING 104: Statistical Methods in Linguistics
 
 ### Spring 2021
  
@@ -17,6 +17,8 @@
 ### Summary
 
 Doing linguistics, or any kind of science, requires thinking about data. In this course, you will get a hands-on introduction to thinking about linguistic data. We will start with some basics of experimental design and analysis, move on to making visualizations and interpreting data, then cover topics in statistics like correlation and linear regression. We will be using the statistical programming language R, which is a widely used tool common to statisticians, linguists, computer scientists and professionals in fields from finance to ecology, from baseball to sociology. Knowing how to use R and interpret data is a hotly coveted skill in the modern world, so your experience in this class will be valuable beyond the (virtual) walls of LING 104. While we do not assume any programming background, you should be prepared to spend some time learning how to work with R. Just like learning any language of which you are not a native speaker, it takes time and practice to get fluent in statistics. You will have lots of help along the way!
+
+Everyone can succeed in this class (even if you do not have experience in these topics or consider them to be "not your thing"), if you put in the work and effort! 
 
 ### Learning outcomes:
 
@@ -40,7 +42,7 @@ We will use Nectir for discussions and for class exit tickets, which will be acc
 On weeks when there are no big projects due, there will be little R practice assignments due. These are intended to take about an hour to complete and will keep you fresh in your R skills. You can skip one over the course of the quarter (complete 3 out of 4).
 
 ### A word about your well-being
-We get it. The last year has been extraodinarily difficult and has taken a toll on all of us. We recognize there will be issues that come up thorughout the quarter and that we can't expect "business as usual." We will make every effort to be accomodating to your needs, and we hope you will do the same for us instructors!
+We get it. The last year has been extraodinarily difficult and has taken a toll on all of us. We recognize there will be issues that come up throughout the quarter and that we can't expect "business as usual." We will make every effort to be accommodating to your needs, and we hope you will do the same for us instructors!
 
 ### Grading
 
@@ -69,7 +71,7 @@ For general academic support, students are encouraged to visit Campus Learning A
 Honesty and integrity in all academic work is essential for a valuable educational experience.  The Office of Judicial Affairs has policies, tips, and resources for proper citation use, recognizing actions considered to be cheating or other forms of academic theft, and students’ responsibilities, available on their website at: [http://judicialaffairs.sa.ucsb.edu](http://judicialaffairs.sa.ucsb.edu).  Students are responsible for educating themselves on the policies and to abide by them.  
   
 (5) Responding to Hate Incidents  
-Hateful actions based on race, ethnicity, religion, gender, sexual orientation, gender identity, citizenship status, age, or disability are not acceptable. In the event that a hate crime or incident does occur, please report it. Reports may be made anonymously. [http://judicialaffairs.sa.ucsb.edu/hate.aspx](http://judicialaffairs.sa.ucsb.edu/hate.aspx)
+Hateful actions based on race, ethnicity, religion, gender, sexual orientation, gender identity, citizenship status, age, disability, or other aspect's of someone's identity and background are not acceptable. In the event that a hate crime or incident does occur, please report it. Reports may be made anonymously. [http://judicialaffairs.sa.ucsb.edu/hate.aspx](http://judicialaffairs.sa.ucsb.edu/hate.aspx)
 
 ## Schedule {#sched}
 
