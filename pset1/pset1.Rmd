@@ -1,0 +1,201 @@
+---
+title: 'Ling 104 Problem Set 1: Practicing R'
+author: "Prof. Kyle Mahowald"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Analyzing Reaction Times
+
+In the first part of this project, you will read in some data from a lexical decision time task for English. You can read about it [here](https://cran.r-project.org/web/packages/languageR/languageR.pdf), on pages 30-31, for the data set called "english." (This documentation is the standard documentation for R packages, so it is good to get familiar with reading it.)
+
+That data is saved in a csv called "english.csv" Below, I read in the data for you, as a data frame called d.
+
+Here is how a lexical decision task works. In a lexical decision task, a subject is presented with a word (like "dog") or a plausible non-word (like "florp") and asked to judge as quickly as possible whether or not what they saw is a word. 
+
+How fast people can make a decision reflects something about the psychological response of the subject to the word in question. In this part of the problem set, you will find out what sorts of things are predictive of lexical decision time.
+
+Below, we read in the data set and make a column called "RT," which is the average time in milliseconds that it took participants to respond to a given word. 
+
+```{r cars}
+d = read_csv("english.csv")
+d$RT = exp(d$RTlexdec)
+head(d)
+```
+
+### 1 
+
+Using the filter command, filter to just the rows for which the "Word" is dog. There should be two rows: one for "young" subjects and one for "old" subjects. 
+
+Remember: the RT column tells you the average lexical decision time in milliseconds.
+
+```{r}
+# TODO
+```
+
+The average RT of the old subjects is TODO. The average RT of the young subjects is TODO.
+
+### 2
+
+Make a histogram using hist(), with breaks=30, that looks at the distribution of RTs across the entire data set.
+
+```{r}
+# TODO
+```
+How many peaks do you see? TODO
+
+### 3 
+
+By filtering the data, now make a histogram for just the young people and for just the old people.
+
+```{r}
+# TODO
+```
+
+Who is faster overall: the young people or the old people? TODO
+
+### 4
+
+Do you see why there were two peaks in Q2 above? TODO
+
+### 5
+
+Besides the age of the subjects, we now want to understand something about what makes a particular word fast or slow for people to respond to it.
+
+The column Familiarity contains average ratings for how familiar the words are. A word with a familiartiy rating of 7 is rated as very familiar to everyone. A word with a familarity rating of 1 is totally unfamiliar to everyone.
+
+Using either plot() or ggplot(), make a plot that represents each data point in the data frame with Familiarity on the x-axis and RT on the y-axis. 
+
+What do you see? TODO
+
+```{r}
+# TODO
+```
+
+### 6
+
+Now let's look at RT as a function of CorrectLexdec. CorrectLexdec is how many people (out of 30) correctly identified that the word was a word. For instance, CorrectLexdec for "doe" for young people is 27. This means 27/30 people knew that "doe" was an English word. 3 got it wrong and said it was not a word.
+
+Ok, here's our plot.
+
+```{r}
+plot(d$CorrectLexdec, d$RT)
+```
+
+Hmm, this plot is kind of hard to see what's going on. I think it will be easier if we first get the average RT for each level of CorrectLexdec and then plot it.
+
+Using group_by() and summarize(), make a new data frame called d.lexdec in which you find the mean RT for each level of CorrectLexdec. That is, it will have a row for CorrectLexdec == 30, in which it says the average RT for all words for which CorrectLexdec == 30. 
+
+```{r}
+# TODO
+```
+
+### 7 
+
+Now that you made this data frame d.lexdec, make a plot in which CorrectLexdec is on the x-axis and the y-axis is the mean RT. This plot should have one data point per x-value, not many as in the plot above.
+
+```{r}
+# TODO
+```
+Describe the pattern you see: TODO.
+
+Extra credit: What is causing this pattern!? TODO
+
+### 8 
+
+Give a brief overall summary of your analysis of this data set, based on what we have seen so far. 
+
+TODO
+
+# Analyzing the dative alternation
+
+In this second part of the problem set, you will analyze the dative alternation in English.
+
+The dative alternation refers to the fact that English has two options for conveying benefactive sentences: "Alex gave Terry the cake." or "Alex gave the cake to Terry." We call the first of these the NP realization (because there are two noun phrases after the verb). We call the second of these the PP realization, because there is a prepositional phrase.
+
+It turns out that there is rich and fascinating statistical structure in which of these choices we make when we are speaking! 
+
+The data set dative.csv contains some data on which choice we make. First, some terminology:
+
+The Recipient (abbreviated Rec in column names in our data set) in these sentences is the person who gets something. In the above, it's Terry since Terry gets the cake. The "theme" is the thing that gets given: the cake.
+
+The dependent variable is RealizationOfRecipient, and it is NP for the NP case and PP for the PP case.
+
+To learn about the other variables, read pages 21-22 [here](https://cran.r-project.org/web/packages/languageR/languageR.pdf).
+
+
+
+### 9 
+
+Read in the data set dative.csv.
+
+```{r}
+# TODO
+```
+
+### 10
+
+Is this data tidy? Why or why not?
+
+TODO
+
+### 11
+
+Let's think about LengthOfTheme and LengthOfRecipient (the number of words in the theme and recipient, respectively).
+
+In one line of code, show the proportion of the time that LengthOfTheme is longer than LengthOfRecipient.
+
+```{r}
+# TODO
+```
+
+### 12
+
+Using group_by() and summarise(), make two new data frames: one showing the proportion of the time the RealizationOfRecipient is "NP" as a function of the LengthOfTheme, another as a function of LengthOfRecipient. Make a plot for each, where the proportion of the time RealizationOfRecipient is "NP" is the value on the y-axis. 
+
+```{r}
+# TODO
+```
+
+
+### 13
+
+Describe what you learned from the graphs in 12. Why do you think we see these patterns? TODO 
+
+### 14
+
+Now, find the proportion of the time each verb is realized as NP, by grouping on Verb. Rank them in order of most NP-realized to least NP-realized verbs.
+
+```{r}
+# TODO
+```
+
+### 15
+
+The next couple questions are a bit more open-ended and give you a chance to come up with your own analyses (an important skill for quantitative linguists!).
+
+Give an analysis that you find convincing that explores the effect of Modality (written or spoken) on the RealizationOfRecipient.
+
+### 16-19 (This question is worth 4 questions)
+
+Pick 3 variables (columns) that we did not discuss. For each one (or, if you want to get fancy, for combinations of them!) do some basic analyses of the sort we did above. And make some graphs. Based on the graphs and analyses, (a) describe the variables and what they mean (giving examples). And (b) discuss your analysis and conclusions. 
+
+Remember, we are building towards a final project where you do your own analyses so this is good practice.
+
+
+```{r}
+# TODO
+```
+
+
+TODO
+
+### 20
+
+About how long did this problem set take you? What was your experience doing it, and what would you like more help in understanding?
+
