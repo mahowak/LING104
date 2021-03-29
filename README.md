@@ -49,7 +49,7 @@ We get it. The last year has been extraodinarily difficult and has taken a toll 
 | Activity|Weight|
 |---|---|
 | 4 projects (your best project will be worth 30%, your worst one will be worth 10%, and the other 2 will be worth 20%) | 80% | 
-| 4 mini-R practices | 10% |
+| 5 mini-R practices (mostly from textbook) | 10% |
 | Class participation (participation in sections, polls, office hours)| 10% |
 
 Late policy: 10% off each day late, down to 50% off. Then you can hand it in later for 50% credit. 50% credit is better than nothing! (I recognize these are extraordinary times, so please reach out ahead of time and we can potentially avoid late penalties.)
@@ -83,7 +83,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |-|-|-|-|
 |3/30| What is R for? Getting started in R. From 0 to Graphs! || |
 |4/1| More practice with R |  Winter 1.1 - 1.11 | |
-|4/6| Is your data tidy? Learning the tidyverse | Winter Chapter 2.1-2.3 | Due: Textbook exercises 1.17.3, 1.17.4, 1.17.5 |
+|4/6| Is your data tidy? Learning the tidyverse | Winter Chapter 2.1-2.3 | Due: Textbook exercises 1.17.3, 1.17.4, 1.17.5, 1.17.6 |
 |4/8| Making pretty documents | Winter 2.4-2.10 | |
 |4/13| Making pretty plots| Winter 2.7-2.10 | |
 |4/15| The dangers of data | | Due at beginning of class: Problem set 1 (Tidyverse)|
@@ -92,7 +92,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
-|4/20| Means and models | Winter 3.1-3.4 | Due: Mini-assignment|
+|4/20| Means and models | Winter 3.1-3.4 | Due: Mini-assignment on normal distributions|
 |4/22| KM away |  | |
 |4/27| Summary statistics | Winter 3.5-3.8 | |
 |4/29| Practice and synthesis on Chapter 3 |  | Due at beginning of class: Problem Set 2|
@@ -102,9 +102,9 @@ We will spend the first few weeks getting started in R, learning to make plots a
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
-|5/6| Linear models I | Winter 4.5-4.9 | Due at beginning of class: Textbook exercises|
+|5/6| Linear models I | Winter 4.5-4.9 | Due at beginning of class: Textbook exercises 4.10.1, 4.10.2|
 |5/11| Linear models II | Winter 5.1-5.4   | |
-|5/13| Correlation I| Winter 5.4.5.9| Due at beginning of class: Textbook exercises|
+|5/13| Correlation I| Winter 5.4.5.9| Due at beginning of class: Textbook exercises 5.9.1|
 |5/18| Designing experiments: best practices and ethics|   | Due at beginning of class: Problem Set 3|
 
 ### Multiple regression 
@@ -112,7 +112,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
 |5/20| Multiple Regression I | Winter 6.1-6.6 | |
-|5/25| Multiple Regression II |  | Due at beginning of class: Textbook exercises|
+|5/25| Multiple Regression II |  | Due at beginning of class: Textbook exercises 6.7.1|
 |5/27| Categorical Predictors I | Winter 7.1-7.5 | |
 |6/1| Categorical Predictors II|  | |
 |6/3| Review and summation |  | Due at beginning of class: Problem Set 4 (Analyze a data set!)|
