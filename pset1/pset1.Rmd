@@ -79,7 +79,7 @@ What do you see? TODO
 
 ### 6
 
-Now let's look at RT as a function of CorrectLexdec. CorrectLexdec is how many people (out of 30) correctly identified that the word was a word. For instance, CorrectLexdec for "doe" for young people is 27. This means 27/30 people knew that "doe" was an English word. 3 got it wrong and said it was not a word.
+Now let's look at RT as a function of CorrectLexdec. (This means CorrectLexdec goes on the x-axis and RT on the y-axis.) CorrectLexdec is how many people (out of 30) correctly identified that the word was a word. For instance, CorrectLexdec for "doe" for young people is 27. This means 27/30 people knew that "doe" was an English word. 3 got it wrong and said it was not a word.
 
 Ok, here's our plot.
 
@@ -197,5 +197,5 @@ TODO
 
 ### 20
 
-About how long did this problem set take you? What was your experience doing it, and what would you like more help in understanding?
+About how long did this problem set take you? What was your experience doing it, and what would you like more help in understanding? Also feel free to share any feedback on the course.
 

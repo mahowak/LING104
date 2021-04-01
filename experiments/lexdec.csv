@@ -1,0 +1,77 @@
+#
+# Results on Thursday April 01 2021 17:44:03 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36
+# Design number was non-random = 0
+#
+# Columns below this comment are as follows:
+# 1. Time results were received.
+# 2. MD5 hash of participant's IP address.
+# 3. Controller name.
+# 4. Item number.
+# 5. Element number.
+# 6. Type.
+# 7. Group.
+# 8. Word number.
+# 9. Word.
+# 10. Reading time.
+# 11. KeyCode.
+# 12. Newline?
+# 13. Sentence (or sentence MD5).
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,10,0,words,NULL,1,GO,579,S,False,GO
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,2,0,words,NULL,1,CAT,720,S,False,CAT
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,3,0,words,NULL,1,MOTION,582,S,False,MOTION
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,7,0,words,NULL,1,LINGUISTICS,763,S,False,LINGUISTICS
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,12,0,words,NULL,1,PHONETICS,605,S,False,PHONETICS
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,11,0,words,NULL,1,SEE,750,S,False,SEE
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,4,0,words,NULL,1,TWINE,792,S,False,TWINE
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,13,0,words,NULL,1,GAUCHO,557,S,False,GAUCHO
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,6,0,words,NULL,1,RADIO,587,S,False,RADIO
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,8,0,words,NULL,1,INEBRIATED,1187,S,False,INEBRIATED
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,9,0,words,NULL,1,LOOK,507,S,False,LOOK
+1617299044,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,5,0,words,NULL,1,KHAKI,426,S,False,KHAKI
+#
+# Results on Thursday April 01 2021 17:51:06 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36
+# Design number was non-random = 1
+#
+# Columns below this comment are as follows:
+# 1. Time results were received.
+# 2. MD5 hash of participant's IP address.
+# 3. Controller name.
+# 4. Item number.
+# 5. Element number.
+# 6. Type.
+# 7. Group.
+# 8. Word number.
+# 9. Word.
+# 10. Reading time.
+# 11. KeyCode.
+# 12. Newline?
+# 13. Sentence (or sentence MD5).
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,2,0,practice,NULL,1,NOW,1931,S,False,NOW
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,3,0,practice,NULL,1,XUSIO,759,K,False,XUSIO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,4,0,practice,NULL,1,EXAM,489,S,False,EXAM
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,6,0,wordsYES,NULL,1,MOTION,601,S,False,MOTION
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,21,0,wordsNO,NULL,1,QZXIBAR,663,K,False,QZXIBAR
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,23,0,wordsNO,NULL,1,IMPERSCIDIOUS,974,K,False,IMPERSCIDIOUS
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,27,0,wordsNO,NULL,1,QQZEI,625,K,False,QQZEI
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,15,0,wordsYES,NULL,1,PHONETICS,599,S,False,PHONETICS
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,8,0,wordsYES,NULL,1,KHAKI,1463,S,False,KHAKI
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,14,0,wordsYES,NULL,1,SEE,945,S,False,SEE
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,19,0,wordsNO,NULL,1,XXIS,1032,S,False,XXIS
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,18,0,wordsNO,NULL,1,EIUOXIE,699,K,False,EIUOXIE
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,17,0,wordsNO,NULL,1,ENCYLOPERIO,839,K,False,ENCYLOPERIO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,7,0,wordsYES,NULL,1,TWINE,2263,S,False,TWINE
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,20,0,wordsNO,NULL,1,FLOPRO,579,K,False,FLOPRO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,10,0,wordsYES,NULL,1,LINGUISTICS,612,S,False,LINGUISTICS
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,9,0,wordsYES,NULL,1,RADIO,1031,K,False,RADIO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,24,0,wordsNO,NULL,1,WORDLOOK,1186,K,False,WORDLOOK
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,13,0,wordsYES,NULL,1,GO,723,S,False,GO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,26,0,wordsNO,NULL,1,ALLOP,788,K,False,ALLOP
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,22,0,wordsNO,NULL,1,MISUNDERFLORMENT,1835,K,False,MISUNDERFLORMENT
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,28,0,wordsNO,NULL,1,BRIPPER,976,K,False,BRIPPER
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,5,0,wordsYES,NULL,1,CAT,580,S,False,CAT
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,11,0,wordsYES,NULL,1,INEBRIATED,974,S,False,INEBRIATED
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,25,0,wordsNO,NULL,1,SPERSHY,823,K,False,SPERSHY
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,16,0,wordsYES,NULL,1,GAUCHO,740,S,False,GAUCHO
+1617299466,e8240850cbd58506cfa6a481217ab205,OnlineJudgment,12,0,wordsYES,NULL,1,LOOK,1279,S,False,LOOK

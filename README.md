@@ -6,7 +6,7 @@
 
 **TA**: Jiyoung Jang (she/her)
 
-**Meeting times**: Tuesday/Thursday 3:30pm-4:45pm
+**Meeting times**: Tuesday/Thursday 3:30pm-4:45pm; Section Monday 4pm
 
 **Location**: remote
 
