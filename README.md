@@ -85,7 +85,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |4/1| More practice with R |  Winter 1.1 - 1.11 | |
 |4/6| Is your data tidy? Learning the tidyverse | Winter Chapter 2.1-2.3 | Due: Textbook exercises 1.17.3, 1.17.4, 1.17.5, 1.17.6 |
 |4/8| Making pretty documents | Winter 2.4-2.10 | |
-|4/13| Making pretty plots| Winter 2.7-2.10 | |
+|4/13| Making pretty plots| Play with [this tutorial](http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html) | |
 |4/15| The dangers of data | | Due at beginning of class: Problem set 1 (Tidyverse)|
 
 ### Descriptive Statistics
