@@ -72,7 +72,4 @@ hist(filter(d, correct == FALSE)$RT, breaks=50)
 # Arrange it by the average RT so we can see the words that generate
 # the longest RTs and shortest RTs
 # This should be no more than 4 short lines of beautiful tidyverse code!
-filter(d, RT < 3000, RT > 500) %>%
-  group_by(word) %>%
-  summarise(m=mean(RT)) %>%
-  arrange(-m)
+
