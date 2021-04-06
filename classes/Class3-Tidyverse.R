@@ -21,7 +21,6 @@ d = read_csv("LING104/experiments/lexdec.csv", comment = "#",
                            "Sent")) %>%
   filter(type != "words")
 
-
 # says if it's correct
 # it's correct if: person pressed S and it YES is a word
 # it's correct if: person pressed K and it NO is not a word
@@ -49,27 +48,61 @@ hist(filter(d)$RT, breaks=50)
 hist(filter(d, correct == TRUE)$RT, breaks=50)
 hist(filter(d, correct == FALSE)$RT, breaks=50)
 
+##### Tidyverse
+
 ### Filter and select
+### dplyr: tidyverse way of manipulating data
+RT # does not work
+filter(d, RT < 200) # works
+filter(d, RT > 200, RT < 700, word == "SEE")
+
+select(d, RT, word, guess)
+d = select(d, -garbage)
+select(d, item:word)
 
 #### The problem with chaining functions
+#### is that this is a hot mess, very confusing
+#### too many parentheses
+filter(select(select(filter(filter(d, RT > 200), word == "SEE"), -item), RT, word), RT  <1000)
 
 #### Using %>%
+filter(d, RT > 200, RT < 1000) %>%
+  select(word, RT)
 
+select(filter(d, RT > 200, RT < 1000), word, RT)
 
 #### Using group_by()
-
-
 #### Using summarise()
+mean(d$RT)
 
+group_by(d, correct) %>%
+  summarise(mean.RT = mean(RT))
 
-#### Using mutate()
+group_by(d, subj) %>%
+  filter(RT < 3000) %>%
+  summarise(mean.RT = mean(RT))
 
+d %>%
+  filter(RT < 3000) %>%
+  summarise(mean.RT = mean(RT))
+
+mean(d[d$RT < 3000, ]$RT)
 
 #### To do in the breakout room
 # Filter outliers (decide based on our histograms: what are reasonable RT cutoffs?)
 # Find the average RT for each word
-# Figure out how arrange() works by using ?arrange() or Googling it
+# Figure out how arrange() works by using ?arrange or Googling it
 # Arrange it by the average RT so we can see the words that generate
 # the longest RTs and shortest RTs
 # This should be no more than 4 short lines of beautiful tidyverse code!
 
+#### Using mutate()
+
+filter(d, word == "NOW")
+
+d.order = group_by(d, subj) %>%
+  filter(RT < 3000) %>%
+  mutate(order=1:n()) %>%
+  group_by(order) %>%
+  summarise(mean.RT = mean(RT))
+plot(d.order$order, d.order$mean.RT)
