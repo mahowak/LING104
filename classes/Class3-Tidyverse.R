@@ -97,6 +97,7 @@ mean(d[d$RT < 3000, ]$RT)
 # This should be no more than 4 short lines of beautiful tidyverse code!
 
 #### Using mutate()
+#### put the order in
 
 filter(d, word == "NOW")
 
@@ -106,3 +107,9 @@ d.order = group_by(d, subj) %>%
   group_by(order) %>%
   summarise(mean.RT = mean(RT))
 plot(d.order$order, d.order$mean.RT)
+
+
+##### TODO in breakout rooms: use mutate to get the average for each subj
+##### Using that average, create ResidualRT, a column which is equal to the
+##### difference between RT and that subject's *average* RT
+##### make a histogram of this, discuss why this might be a good idea
