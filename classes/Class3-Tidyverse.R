@@ -88,6 +88,36 @@ d %>%
 
 mean(d[d$RT < 3000, ]$RT)
 
+# filter, select, group_by, summarise, arrange
+
+d.max.min.med = filter(d) %>%
+  group_by(word) %>%
+  summarise(max.RT = max(RT),
+            min.RT = min(RT),
+            median.RT = median(RT))
+
+# mutate
+# make a new data frame, which includes
+# a new column that includes the maximum
+# RT *for that subject*
+d = filter(d) %>%
+  group_by(subj) %>%
+  mutate(max.RT = max(RT))
+
+tail(select(d, subj, RT, max.RT))
+
+# n(): whatever number of elements there are,
+# return that number
+d = mutate(d, rownumber = 1:n(),
+           nothing = "NOTHING")
+
+d = group_by(d, subj) %>%
+  mutate(trial_num = 1:n())
+
+select(d, rownumber, trial_num)
+
+plot(d$trial_num, d$RT)
+
 #### To do in the breakout room
 # Filter outliers (decide based on our histograms: what are reasonable RT cutoffs?)
 # Find the average RT for each word
@@ -97,19 +127,19 @@ mean(d[d$RT < 3000, ]$RT)
 # This should be no more than 4 short lines of beautiful tidyverse code!
 
 #### Using mutate()
-#### put the order in
-
-filter(d, word == "NOW")
-
-d.order = group_by(d, subj) %>%
-  filter(RT < 3000) %>%
-  mutate(order=1:n()) %>%
-  group_by(order) %>%
-  summarise(mean.RT = mean(RT))
-plot(d.order$order, d.order$mean.RT)
 
 
 ##### TODO in breakout rooms: use mutate to get the average for each subj
 ##### Using that average, create ResidualRT, a column which is equal to the
 ##### difference between RT and that subject's *average* RT
 ##### make a histogram of this, discuss why this might be a good idea
+d = group_by(d, subj) %>%
+  mutate(ResidualRT = (RT - mean(RT))/sd(RT))
+hist(d$ResidualRT, breaks=40)
+
+group_by(d, subj) %>%
+  summarise(raw.RT = mean(RT),
+            residual.RT = mean(ResidualRT))
+
+
+
