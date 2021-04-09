@@ -92,9 +92,9 @@ We will spend the first few weeks getting started in R, learning to make plots a
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
-|4/20| Means and models | Winter 3.1-3.4 | Mini2 Due: Mini-assignment on normal distributions|
+|4/20| Means and models | Winter 3.1-3.8 | Mini2 Due: 3.10.1 (the second part of this question about 68% and 95% lines is for 1 point extra credit), 3.10.2|
 |4/22| KM away |  | |
-|4/27| Summary statistics | Winter 3.5-3.8 | |
+|4/27| Summary statistics |  | |
 |4/29| Practice and synthesis on Chapter 3 |  | Due at beginning of class: Problem Set 2|
 |5/4| Word frequency data | Winter 4.1-4.5| |
 
