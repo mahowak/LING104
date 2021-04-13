@@ -1,0 +1,95 @@
+---
+title: "Class5"
+author: "Kyle Mahowald"
+date: "4/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This is a header
+
+We ran a lexical decision experiment in Ling 104. Below, we read in the lexical decision data using the tidyverse. 
+
+We create a new column ResidualRT which is the normalized RT for each subject, and we make a histogram of the ResidualRTs.
+
+```{r reading, include=TRUE}
+library(tidyverse)
+d = read_csv("../experiments/lexdec.csv", comment = "#",
+             col_names = c("time", "subj", "exp",
+                           "item", "element", "type",
+                           "garbage", "wordnum", 
+                           "word", "RT", "guess", 
+                           "Sent")) %>%
+  filter(type != "words")
+
+d = group_by(d, subj) %>%
+  mutate(ResidualRT = (RT - mean(RT))/sd(RT))
+hist(d$ResidualRT, breaks=40)
+```
+
+# Reviewing Tidyverse: Looking at the dative
+
+```{r}
+dative = read_csv("../pset1/dative.csv")
+head(dative)
+dative$Modality
+filter(dative, Modality == "written") %>%
+  select(Verb, RealizationOfRecipient)
+
+# first group_by,
+# take the output of the group_by() function and apply the summarise function
+# to it
+group_by(dative, AnimacyOfTheme) %>%
+  summarise(is.NP = mean(RealizationOfRecipient == "NP"))
+
+# equivalent to above
+dative.grouped = group_by(dative, AnimacyOfTheme)
+summarise(dative.grouped, is.NP = mean(RealizationOfRecipient == "NP"))
+
+# also equivalent
+summarise(group_by(dative, AnimacyOfTheme), 
+          is.NP =mean(RealizationOfRecipient == "NP"))
+
+
+dative$RealizationOfRecipient == "NP"
+
+# proportion of the time that the value is TRUE
+mean(c(TRUE, TRUE, TRUE, FALSE))
+
+
+```
+
+# Learning ggplot
+
+```{r}
+# scatterplot: geom_point()
+ggplot(d, aes(x=RT, y=ResidualRT, colour=subj)) +
+  geom_point() 
+
+# violin plot (powerful but violin plots are not so useful in many cases)
+ggplot(d, aes(x=RT, y=ResidualRT, colour=subj)) +
+  geom_violin() 
+
+# histogram
+hist(d$RT)
+print(ggplot(d, aes(x=RT, fill=subj)) +
+  geom_histogram() )
+
+# now do the colored histogram by word
+print(ggplot(d, aes(x=RT, fill=word)) +
+  geom_histogram() )
+
+# plot that makes points....and then add lines
+ggplot(d, aes(x=RT, y=ResidualRT, colour=subj)) +
+  geom_line() + 
+  geom_point()  
+
+ggplot(d, aes(x=RT)) + 
+  geom_histogram() + 
+  facet_wrap(~type, ncol=5)
+
+head(d)
+```
