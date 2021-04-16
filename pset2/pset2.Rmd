@@ -1,0 +1,263 @@
+---
+title: 'Ling 104 Problem Set 2: Means and Models'
+author: "TODO"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Analyzing Reaction Times
+
+Back to our favorite data set: lexical decision times.
+
+To refresh your memory from last time, here is our description:
+You will read in some data from a lexical decision time task for English. You can read about it [here](https://cran.r-project.org/web/packages/languageR/languageR.pdf), on pages 30-31, for the data set called "english." (This documentation is the standard documentation for R packages, so it is good to get familiar with reading it.)
+
+That data is saved in a csv called "english.csv" Below, I read in the data for you, as a data frame called d.
+
+Here is how a lexical decision task works. In a lexical decision task, a subject is presented with a word (like "dog") or a plausible non-word (like "florp") and asked to judge as quickly as possible whether or not what they saw is a word. 
+
+How fast people can make a decision reflects something about the psychological response of the subject to the word in question. In this part of the problem set, you will find out what sorts of things are predictive of lexical decision time.
+
+Below, we read in the data set and make a column called "RT," which is the average time in milliseconds that it took participants to respond to a given word. 
+
+```{r cars}
+d = read_csv("../pset1/english.csv")
+d$RT = exp(d$RTlexdec)
+d$WrittenCount = exp(d$WrittenFrequency)
+head(d)
+```
+
+### 1. Means and medians
+
+Remember: the RT column tells you the average lexical decision time in milliseconds.
+
+Report the mean, median, max, and min for RT. 
+
+```{r}
+# TODO
+```
+
+### 2 WrittenCount Statistics
+
+Report the mean, median, max, and min for the column WrittenCount. This is the number of times that a particular word occurs in a corpus. For instance, if the value is 10, that means the word occurred 10 times occurred in the corpus.
+
+Is the mean or median higher? Do you have any thoughts as to why this is the case?
+
+```{r}
+# TODO
+```
+
+### 3 Written Count Mean
+
+Make a histogram (with breaks=200) of the variable WrittenCount. Describe its shape.
+
+```{r}
+# TODO
+```
+
+Data with this shape will always have the mean higher than the median. Using your Answer to #2, discuss why this might be the case.
+
+
+### 4 Familiarity
+
+What you did in Questions 2-3 was characterize the distribution of the variable WrittenCount. Now do the same for Familarity by reporting the max, min, median, and mean and by making a histogram (set breaks=30). 
+
+```{r}
+# TODO
+```
+
+How do the mean and median compare? Are the mean and the median closer to each other or farther apart than the mean and median for WrittenCount?
+
+TODO
+
+### 5 Is WrittenCount normally distributed?
+
+#### 5a. 
+
+First, get the mean and standard deviation (using the function sd()) for the variable WrittenCount. Let's call them WrittenCount.mean and WrittenCount.sd, respectively. Using that mean and standard deviation, generate a sample of 4000 numbers from a normal distribution that has mean WrittenCount.mean and standard deviation WrittenCount.sd. 
+
+Make a histogram of this sample. Then, sample again and make a histogram again. Do this 4 times, so that you have 4 histograms. (HINT: you might have to use print() around your plot to make it appear.)
+
+
+```{r}
+# TODO
+```
+
+#### 5b.
+
+Now make a histogram of WrittenCount itself.  
+
+```{r}
+# TODO
+```
+
+Compare the histogram in 5b to the histograms in part 5a. Remember: you generated the normal samples in 5a using the same mean and the same standard deviation as WrittenCount. Why do the plots look different?
+
+### 6 Is Familarity normally distributed?
+
+Repeat all parts of 5a and 5b, but using Familiarity instead of WrittenCount. 
+
+3 points Extra Credit: Turn the code in 5a and 5b into a function (or a couple functions) that tak "WrittenCount" as an argument. Then, for Q6 and Q7, you can just call those function(s). 
+
+```{r}
+```
+
+Compare Questions 5 and 6. Is Familarity closer to the normal distribution than WrittenCount?
+
+TODO
+
+
+### 7 Is log(WrittenCount) normally distributed?
+
+Here we go again: Repeat all parts of 5a and 5b using log(WrittenCount) instead of WrittenCount. (Or, you can use your function.)
+
+```{r}
+d$log.WrittenCount = log(d$WrittenCount)
+```
+
+Is log(WrittenCount) normally distributed?
+
+TODO
+
+### 8 If we sample the mean of WrittenCount, is that normally distributed?
+
+Remember the sample() function? That lets you take a sample from your data. Fill in the function below. There is a for loop here, which means that what is inside the curly brackets is done repeatedly.
+
+#### 8a.
+
+```{r}
+a = NULL
+for (i in 1:1000) {
+  written.count.sample = NULL # TODO: replace the NULL to the left, call the function sample() to get a sample 
+                         # of 1000 data points from d$WrittenCount, 
+  mean.sample = NULL #= # TODO: take the mean of written.count.sample
+  a = append(a, mean.sample)
+}
+```
+
+TODO: Describe what is in a.
+
+#### 8b. 
+
+Make a histogram of the variable a from 8a. 
+
+```{r}
+# TODO
+```
+
+TODO: Why does this look normal, even though d$WrittenCount itself is not normal? (HINT: you might google "sample mean" and "central limit theorem.")
+
+### 9 Practicing ggplot(): make two histograms next to each other, one for young and one for old.
+
+Now we are interested in using the kinds of statistics we've been practicing above to ask some questions about our data. 
+
+The first question is: are the RTS of young participants actually faster than the RTs of older participants? Or is that just due to chance?
+
+First, using ggplot(), geom_histogram(), and facet_grid(), make 2 histograms, side by side, that show the distribution of young participants and old participants.
+
+EXTRA CREDIT (3 pts): The histograms, side by side, aren't really the best way to visualize this. Try to come up with a better way to make a visualization that answers the question: are young and old RTs really systematiaclly different?
+
+```{r}
+# TODO
+```
+
+
+### 10 Quantitative comparison of Reaction Times for young and old participants [This que]
+
+To figure out if there is really a difference, we need to compare to something. So let's compare to random chance. 
+
+As a first step, let's get a data frame that has the following columns: word, RT for young people on that word, RT for older people on that word. 
+
+I'll do this for you, but pay attention to the code so you can follow along!
+
+```{r}
+d.diff = mutate(d, Word = paste(Word, WordCategory)) %>%
+  select(Word, AgeSubject, RT) %>%
+  spread(AgeSubject, RT) %>%
+  mutate(RT.diff = old - young)
+```
+
+Cool! Now we have a data frame d.diff, which contains a Word (concatenated with its part of speech, so "launch" appears as "launch N" or "launch V"), its RT for older participants, its RT for younger participants, and the difference.
+
+Here is a histogram of RT.diff. It's not quite normal, but we will pretend like it is.
+
+```{r}
+hist(d.diff$RT.diff, breaks=30)
+rt.diff.mean = mean(d.diff$RT.diff)
+rt.diff.sd = sd(d.diff$RT.diff)
+```
+
+
+Now here is your task. We are going to consider the following scenario: let's say that the difference between old and young RTs for each word is generated by a normal distribution with mean 0. This is equivalent to saying there is no difference between young and old RTs.
+
+Let's simulate that scenario 1000 times. Each time we do the simulation, we record the simulation mean in the vector a.
+
+```{r}
+# Replace the NULL's when you do the task, those are just placeholders
+a = NULL
+for (i in 1:1000) {
+  r.norm = NULL # TODO:  =  simulate 2284 data points (which is the number of rows in d.diff) drawn from a 
+           # normal distribution with mean 0 and sd == rt.diff.sd
+  r.norm.mean  = NULL # TODO:  = take the mean of r.norm
+  a = append(a, r.norm.mean)
+}
+```
+
+### 10a
+
+Show quantitatively how often the observed mean (which we computed as rt.diff.mean) is larger than our 1000 simulated sample means.
+
+```{r}
+# TODO
+```
+
+
+### 10b
+
+Now let's work on a plot that I'll help make for you, but, using your knowledge of the code, fill in the axis labels with informative labels and write a caption (2-3 sentences) describing the plot. In particular, look at the red point and understand what it means. Look at the code for the plot to make sure you understand what it's doing.
+
+Caption: TODO
+
+```{r}
+means = tibble(simulated_mean=a)
+ggplot(means, aes(x=simulated_mean)) +
+  geom_histogram(bins=100) +
+  xlab("TODO") + # fill in the x-axis label here
+  ylab("TODO") + # fill in the y-axis label here
+  geom_point(aes(x=rt.diff.mean, y=0), size=1, colour="red")
+```
+
+TODO: What does this plot tell us? Could the difference between the young RTs and the old RTs plausibly be due to chance?
+
+### 11 Plot WrittenCount against RT
+
+Using ggplot, plot RT as a function of WrittenCount. This means WrittenCount on the x-asis, RT on the y-axis.
+
+```{r}
+# TODO
+```
+
+### 12 Plot log(WrittenCount) against log(RT)
+
+Using ggplot, plot log(RT) as a function of log(WrittenCount). This means log(WrittenCount) on the x-asis, log(RT) on the y-axis.
+
+
+```{r}
+# TODO
+```
+
+TODO: Compare 10 and 11, which one looks more like a straight line? 
+
+### 13 Testing the effect of WrittenCount and RT
+
+Propose a method, using simulation like in Q10, for assessing whether there is a significant effect of WrittenCount on RT. 
+
+TODO
+
+EXTRA CREDIT: Implement this method and draw a conclusion!
+
