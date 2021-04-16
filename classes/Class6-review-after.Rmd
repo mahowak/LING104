@@ -1,0 +1,98 @@
+---
+title: 'Ling 104 Problem Set 2: Means and Models'
+author: "Prof. Kyle Mahowald"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Analyzing Reaction Times
+
+Back to our favorite data set: lexical decision times.
+
+To refresh your memory from last time, here is our description:
+You will read in some data from a lexical decision time task for English. You can read about it [here](https://cran.r-project.org/web/packages/languageR/languageR.pdf), on pages 30-31, for the data set called "english." (This documentation is the standard documentation for R packages, so it is good to get familiar with reading it.)
+
+That data is saved in a csv called "english.csv" Below, I read in the data for you, as a data frame called d.
+
+Here is how a lexical decision task works. In a lexical decision task, a subject is presented with a word (like "dog") or a plausible non-word (like "florp") and asked to judge as quickly as possible whether or not what they saw is a word. 
+
+How fast people can make a decision reflects something about the psychological response of the subject to the word in question. In this part of the problem set, you will find out what sorts of things are predictive of lexical decision time.
+
+Below, we read in the data set and make a column called "RT," which is the average time in milliseconds that it took participants to respond to a given word. 
+
+```{r cars}
+d = read_csv("english.csv")
+d$RT = exp(d$RTlexdec)
+d$WrittenCount = exp(d$WrittenFrequency)
+head(d)
+```
+
+### 1. Means and medians
+
+Remember: the RT column tells you the average lexical decision time in milliseconds.
+
+Report the mean, median, max, and min for RT. 
+
+```{r}
+# TODO
+```
+
+### 2
+
+Report the mean, median, max, and min for the column WrittenCount. This is the number of times that a particular word occurs in a corpus. For instance, if the value is 10, that means the word occurred 10 times occurred in the corpus.
+
+Is the mean or median higher? Do you have any thoughts as to why this is the case?
+
+```{r}
+# TODO
+```
+
+### 3 
+
+Make a histogram (with breaks=200) of the variable WrittenCount. Describe its shape.
+
+```{r}
+# TODO
+```
+
+Data with this shape will always have the mean higher than the median. Using your Answer to #2, discuss why this might be the case.
+
+
+### 4 Familiarity
+
+What you did in Questions 2-3 was characterize the distribution of the variable WrittenCount. Now do the same for Familarity by reporting the max, min, median, and mean and by making a histogram (set breaks=30). 
+
+```{r}
+# TODO
+```
+
+How do the mean and median compare? Are the mean and the median closer to each other or farther apart than the mean and median for WrittenCount?
+
+TODO
+
+### 5 Is WrittenCount normally distributed?
+
+### 6 Is Familarity normally distributed?
+
+### 7 Is log(WrittenCount) normally distributed?
+
+### 8 If we sample the mean of WrittenCount, is that normally distributed?
+
+### 9 Practicing ggplot(): make two histograms next to each other, one for young and one for old.
+
+### 10 Plot WrittenCount against RT
+
+### 11 Plot log(WrittenCount) against RT
+
+### 12 Let's test if young and old are truly different, in their RTs. Throw out the labels. Do the comparison. 
+
+### 13 
+
+### 14 Let's test if WrittenCount and RT are really related?
+
+### Part ii 
