@@ -1,98 +1,131 @@
 ---
-title: 'Ling 104 Problem Set 2: Means and Models'
-author: "Prof. Kyle Mahowald"
-date: "3/29/2021"
+title: "Class 6-Dative and ggplot"
 output: html_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-```
-
-# Analyzing Reaction Times
-
-Back to our favorite data set: lexical decision times.
-
-To refresh your memory from last time, here is our description:
-You will read in some data from a lexical decision time task for English. You can read about it [here](https://cran.r-project.org/web/packages/languageR/languageR.pdf), on pages 30-31, for the data set called "english." (This documentation is the standard documentation for R packages, so it is good to get familiar with reading it.)
-
-That data is saved in a csv called "english.csv" Below, I read in the data for you, as a data frame called d.
-
-Here is how a lexical decision task works. In a lexical decision task, a subject is presented with a word (like "dog") or a plausible non-word (like "florp") and asked to judge as quickly as possible whether or not what they saw is a word. 
-
-How fast people can make a decision reflects something about the psychological response of the subject to the word in question. In this part of the problem set, you will find out what sorts of things are predictive of lexical decision time.
-
-Below, we read in the data set and make a column called "RT," which is the average time in milliseconds that it took participants to respond to a given word. 
-
-```{r cars}
-d = read_csv("english.csv")
-d$RT = exp(d$RTlexdec)
-d$WrittenCount = exp(d$WrittenFrequency)
-head(d)
-```
-
-### 1. Means and medians
-
-Remember: the RT column tells you the average lexical decision time in milliseconds.
-
-Report the mean, median, max, and min for RT. 
+# What is a function?
 
 ```{r}
-# TODO
+# input: filename (as a character string)
+# output: dataframe in R
+dative = read_csv("../pset1/dative.csv")
+mean(dative$LengthOfRecipient)
+
+add.s.to.verb = function(x) {
+  return (paste(x, "s", sep=""))
+}
+
+add.s.to.verb("give")
+dative$Verb.3S = add.s.to.verb(dative$Verb)
+
+# LengthOfTheme as a function of LengthOfRecipient
+ggplot(dative, aes(x=LengthOfRecipient, y=LengthOfTheme)) + 
+  geom_point()
+
+
 ```
 
-### 2
-
-Report the mean, median, max, and min for the column WrittenCount. This is the number of times that a particular word occurs in a corpus. For instance, if the value is 10, that means the word occurred 10 times occurred in the corpus.
-
-Is the mean or median higher? Do you have any thoughts as to why this is the case?
 
 ```{r}
-# TODO
+ggplot(dative, aes(x=LengthOfRecipient, y=LengthOfTheme)) + 
+  geom_point() + 
+  geom_line()
 ```
 
-### 3 
+### Nonpronominal theme
+Amy gave the book to Greg. (PP)
+Amy gave Greg the book. (NP)
 
-Make a histogram (with breaks=200) of the variable WrittenCount. Describe its shape.
+### Pronominal theme
+Amy gave it to Greg. (PP) S-theme-recipient
+* Amy gave Greg it. (NP) S-recipient-theme
+* Amy gave Greg who was coming back from the movies and had just 
+seen Mank it.
+Greg was given it by Amy. reicipient-theme-S
 
 ```{r}
-# TODO
+head(dative)
+unique(dative$PronomOfTheme)
+group_by(dative, PronomOfTheme) %>%
+  summarise(mean.NP = mean(RealizationOfRecipient == "NP"))
+
+group_by(dative, PronomOfTheme) %>%
+  summarise(mean.NP = mean(RealizationOfRecipient == "NP")) %>%
+  ggplot(data=., aes(x=PronomOfTheme, y=mean.NP)) + 
+  geom_bar(stat="identity")
 ```
 
-Data with this shape will always have the mean higher than the median. Using your Answer to #2, discuss why this might be the case.
+Confound: something which offers an alternative explanation for the observed pattern in the data, which cannot be ruled out.
 
+Based on the above, it's tempting to say: "When you have a Pronoun theme, you avoid NP." BUT....we also know that when you have a short theme and a long recipient, you are more likely to put the recipient last. 
 
-### 4 Familiarity
+* Amy gave Greg it. (NP) S-recipient-theme
+* Amy gave [Greg who was coming back from the movies and had just 
+seen Mank] it.
 
-What you did in Questions 2-3 was characterize the distribution of the variable WrittenCount. Now do the same for Familarity by reporting the max, min, median, and mean and by making a histogram (set breaks=30). 
+```{r fig.width=6, fig.height=3}
+dative.pro.len = group_by(dative, PronomOfTheme, LengthOfTheme) %>%
+  summarise(mean.NP = mean(RealizationOfRecipient == "NP"),
+            n=n())
+
+ggplot(dative.pro.len, aes(x=LengthOfTheme,
+                           mean.NP,
+                           color=PronomOfTheme)) + 
+  geom_point() + 
+  geom_line()
+```
+
 
 ```{r}
-# TODO
+ggplot(dative.pro.len, aes(x=LengthOfTheme,
+                           y=mean.NP,
+                           color=PronomOfTheme,
+                           size=n)) + 
+  geom_point() 
 ```
 
-How do the mean and median compare? Are the mean and the median closer to each other or farther apart than the mean and median for WrittenCount?
+Cluster data points together, when they have too few data points.
 
-TODO
+```{r}
 
-### 5 Is WrittenCount normally distributed?
+nrow(filter(dative, LengthOfTheme > 15))
+dative.pro.len = mutate(dative.pro.len, 
+                        LengthOfTheme.Trunc = ifelse(LengthOfTheme >= 5,
+                                                     5,
+                                                     LengthOfTheme))
+ggplot(dative.pro.len, aes(x=LengthOfTheme.Trunc,
+                           y=mean.NP,
+                           color=PronomOfTheme,
+                           size=n)) + 
+  geom_point() 
+```
 
-### 6 Is Familarity normally distributed?
 
-### 7 Is log(WrittenCount) normally distributed?
+```{r}
+dative.pro.len = group_by(dative, PronomOfTheme, PronomOfRec, LengthOfTheme) %>%
+  summarise(mean.NP = mean(RealizationOfRecipient == "NP"),
+            n=n())
 
-### 8 If we sample the mean of WrittenCount, is that normally distributed?
+ggplot(dative.pro.len, aes(x=LengthOfTheme,
+                           mean.NP,
+                           color=PronomOfTheme)) + 
+  geom_point() +
+  #facet_grid(ROW ~ COL)
+  facet_grid(. ~ PronomOfRec)
+```
 
-### 9 Practicing ggplot(): make two histograms next to each other, one for young and one for old.
+WHen you have a nonpronominal recipient and a pronominal theme, you are very unlikely to get an NP realization.
 
-### 10 Plot WrittenCount against RT
+* Amy gave Greg it. (NP) S-recipient-theme
 
-### 11 Plot log(WrittenCount) against RT
+It seems better when the recipient is also a pronoun.
 
-### 12 Let's test if young and old are truly different, in their RTs. Throw out the labels. Do the comparison. 
+* Amy gave him it.
 
-### 13 
-
-### 14 Let's test if WrittenCount and RT are really related?
-
-### Part ii 
+```{r}
+ggplot(dative.pro.len, aes(x=LengthOfTheme,
+                           mean.NP,
+                           color=PronomOfTheme)) + 
+  geom_point() +
+  #facet_grid(ROW ~ COL)
+  facet_grid(PronomOfRec ~ PronomOfTheme)
+```
