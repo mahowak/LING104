@@ -1,0 +1,56 @@
+---
+title: "Class 7 - Uniforms and Normals"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
+arrange(d, -Iconicity)
+```
+
+# Understanding mean, median, and standard deviation (sd)
+
+```{r}
+x = c(1, 2, 3, 4, 5)
+y = c(1, 2, 3, 4, 100000000)
+```
+
+# Uniform and normal
+
+```{r}
+u = runif(10000, 0, 1)
+n = rnorm(10000, 0, 1)
+
+d = tibble(unif=u, norm=n)
+```
+
+# Make some different histograms by taking the mean of the uniform distribution. 
+
+```{r}
+```
+
+# Exercise
+
+Take 10000 draws from a uniform distribution [0, 1]. Find the 2.5 percentile, 50th percentile, 97.5th percentile empirically (by computing it). That is: find the value for which 2.5% of the data is less than that value. Then for 50% (this is the median!), etc. 
+
+Now do the same for a normal distribution. Keep the mean 0, but play around with the standard deviation (try 1, 2, 3). How does this affect things?
+
+```{r}
+```
+
+# Exercise 2
+
+Get the iconicity scores from d above. Rank them, look at them.
+
+Now make a histogram. Find the mean and standard deviation. 
+
+Now sample a normal distribution with that mean and standard deviation. 
+
+How similar are they?
+
+```{r}
+```
