@@ -1,0 +1,130 @@
+---
+title: "Class 7 - Uniforms and Normals"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
+arrange(d, -Iconicity)
+```
+
+# Understanding mean, median, and standard deviation (sd)
+
+```{r}
+x = c(1, 2, 3, 4, 5)
+y = c(1, 2, 3, 4, 100000000)
+
+mean(x)
+mean(y)
+
+median(x)
+median(y)
+```
+# Standard deviation
+
+On average, how far is a data point from the mean?
+
+```{r}
+print(x)
+mean(abs(x - 3))
+sum(abs(x - 3))/4
+sqrt(var(x))
+
+sqrt(sum((x - 3)**2)/4)
+
+x
+y
+sd(x)
+sd(y)
+```
+
+# Uniform and normal
+
+```{r, fig.height=3, fig.width=3}
+u = runif(10000, 0, 1)
+hist(u)
+
+u1 = runif(3, 0, 1)
+u2 = runif(3, 0, 1)
+u3 = runif(3, 0, 1)
+print(u1)
+print(u2)
+
+n = rnorm(10000, 0, 1)
+hist(n)
+
+d = tibble(unif=u, norm=n)
+```
+
+# Make some different histograms by taking the mean of the uniform distribution. 
+
+```{r, fig.height=3, fig.width=3}
+get_unif_mean = function(n) {
+  return(mean(runif(n, 0, 1)))
+}
+
+a = NULL
+for (i in 1:1000) {
+  a = append(a, get_unif_mean(10000))
+}
+hist(a)
+```
+```{r, fig.height=3, fig.width=3}
+a = NULL
+for (i in 1:1000) {
+  a = append(a, get_unif_mean(5))
+}
+hist(a)
+
+
+mean(runif(100000, 0, 1))
+```
+
+# Exercise
+
+Take 10000 draws from a uniform distribution [0, 1]. Find the 2.5 percentile, 50th percentile, 97.5th percentile empirically (by computing it). That is: find the value for which 2.5% of the data is less than that value. Then for 50% (this is the median!), etc. 
+
+```{r}
+samples = tibble(u=runif(10000, 0, 1))
+samples = arrange(samples, u)
+samples[250, ]
+samples[5000, ]
+samples[9750, ]
+hist(samples$u)
+quantile(samples$u, probs = c(.025, .5, .975))
+```
+
+Let's try with a small sample size. 
+```{r}
+samples = tibble(u=runif(10, 0, 1))
+samples = arrange(samples, u)
+samples[250, ]
+samples[5000, ]
+samples[9750, ]
+hist(samples$u)
+quantile(samples$u, probs = c(.025, .5, .975))
+```
+Now do the same for a normal distribution. Keep the mean 0, but play around with the standard deviation (try 1, 2, 3). How does this affect things?
+
+```{r}
+x = rnorm(100000,0,1)
+quantile(x,c(.025,.5,.975))
+
+hist(x)
+```
+
+# Exercise 2
+
+Get the iconicity scores from d above. Rank them, look at them.
+
+Now make a histogram. Find the mean and standard deviation. 
+
+Now sample a normal distribution with that mean and standard deviation. 
+How similar are they?
+
+```{r}
+```
