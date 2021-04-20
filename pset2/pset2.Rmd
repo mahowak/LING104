@@ -46,7 +46,9 @@ Report the mean, median, max, and min for RT.
 
 Report the mean, median, max, and min for the column WrittenCount. This is the number of times that a particular word occurs in a corpus. For instance, if the value is 10, that means the word occurred 10 times occurred in the corpus.
 
-Is the mean or median higher? Do you have any thoughts as to why this is the case?
+Is the mean or median higher? 
+
+TODO
 
 ```{r}
 # TODO
@@ -251,7 +253,7 @@ Using ggplot, plot log(RT) as a function of log(WrittenCount). This means log(Wr
 # TODO
 ```
 
-TODO: Compare 10 and 11, which one looks more like a straight line? 
+TODO: Compare the plots in Q11 and Q12. If you were to plot a "line of best fit," which one would be a better fit to a straight line?
 
 ### 13 Testing the effect of WrittenCount and RT
 
