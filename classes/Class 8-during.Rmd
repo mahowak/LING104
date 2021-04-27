@@ -1,0 +1,125 @@
+---
+title: "Class 8 - Uniforms and Normals"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+x = c(1, 5, 10, 3, NA)
+mean(x, na.rm=T)
+sd(x)
+sd(x, na.rm=T)
+```
+
+# Review from Class 7
+
+Review mean, median, standard deviation, normal distributions.
+
+```{r}
+rnorm(5, 0, 1)
+
+mean(rnorm(5, 0, 1))
+
+mean(rnorm(100000, 0, 1))
+
+sd(rnorm(100000, 0, 1))
+
+sd(rnorm(5, 0, 1))
+
+
+rbinom(3, 1, .5)
+
+x = rnorm(100000, 0, 1)
+mean(x < 0)
+mean(-1 < x & x < 1)
+
+#
+runif(5, 5, 10)
+runif(5, -12, 20)
+hist(runif(1000, -12, 20))
+```
+
+
+# Exercise 2
+
+
+```{r}
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
+arrange(d, -Iconicity) %>%
+  select(Word, POS, Iconicity)
+
+arrange(d, Iconicity) %>%
+  select(Word, POS, Iconicity)
+```
+
+
+Get the iconicity scores from d above. Rank them, look at them.
+
+Now make a histogram. Find the mean and standard deviation.
+
+```{r, width=3, height=3}
+hist(d$Freq, breaks=50)
+hist(d$Iconicity)
+
+icon.mean = mean(d$Iconicity)
+icon.sd = sd(d$Iconicity)
+icon.nrow = nrow(d)
+```
+
+Now sample a normal distribution with that mean and standard deviation. 
+How similar are they?
+
+```{r}
+print(hist(rnorm(icon.nrow, icon.mean, icon.sd), breaks=50))
+print(hist(d$Iconicity, breaks=50))
+
+icon = tibble(icon=d$Iconicity, type="real")
+sampled = tibble(icon=rnorm(icon.nrow, icon.mean, icon.sd), type="sim")
+icon.sampled = bind_rows(icon, sampled)
+ggplot(icon.sampled, aes(x=icon, fill=type)) +
+  geom_histogram(alpha=.4)  +
+  facet_grid(type ~ .)
+
+nrow(filter(icon.sampled, type == "real"))
+nrow(filter(icon.sampled, type == "sim"))
+
+```
+
+# Mean as a model
+
+Task: for a random word, predict the iconicity.
+
+Idea: Use the mean.
+
+```{r}
+d$Prediction = mean(d$Iconicity)
+```
+
+How wrong will we be!? (I.e.: what is the error?)
+
+```{r}
+d$Residual = d$Iconicity - d$Prediction
+sum(d$Residual) # this is close to 0 because we have a mixture of negatives and positives
+sum(abs(d$Residual)) # absolute total error
+sum(abs(d$Residual))/nrow(d)
+```
+
+How wrong will we be (squared)?
+
+Instead of absolute difference, look at squared difference.
+
+Mean Squared Error is a crucial quantity for linear regression and statistics.
+
+```{r}
+d$SquareDiff = d$Residual * d$Residual
+hist(d$SquareDiff)
+sum(d$SquareDiff)
+sum(d$SquareDiff)/nrow(d)
+```
+
+Now do it for POS I.e., compare POS == "Interjection" vs. POS == "Name"
+
+```{r}
+```
+
+How wrong are we?
