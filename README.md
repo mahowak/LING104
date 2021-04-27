@@ -95,16 +95,16 @@ We will spend the first few weeks getting started in R, learning to make plots a
 |4/20| Means and models | Winter 3.1-3.8 | Mini2 Due: 3.10.1 (the second part of this question about 68% and 95% lines is for 1 point extra credit), 3.10.2|
 |4/22| KM away |  | |
 |4/27| Summary statistics |  | |
-|4/29| Practice and synthesis on Chapter 3 |  | Due at beginning of class: Problem Set 2|
-|5/4| Word frequency data | Winter 4.1-4.5| |
+|4/29| Getting into linear models |  | Due at beginning of class: Problem Set 2|
+|5/4| Linear models I | Winter 4.1-4.5| |
 
 ### Linear models, correlation, regression
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
-|5/6| Linear models I | Winter 4.5-4.9 | Mini3 Due at beginning of class: Textbook exercises 4.10.1, 4.10.2|
-|5/11| Linear models II | Winter 5.1-5.4   | |
-|5/13| Correlation I| Winter 5.4.5.9| Mini4 Due at beginning of class: Textbook exercises 5.9.1|
+|5/6| Linear models II | Winter 4.5-4.9 | Mini3 Due at beginning of class: Textbook exercises 4.10.1, 4.10.2|
+|5/11| Linear models III | Winter 5.1-5.4   | |
+|5/13| Correlation | Winter 5.4.5.9| Mini4 Due at beginning of class: Textbook exercises 5.9.1|
 |5/18| Designing experiments: best practices and ethics|   | Due at beginning of class: Problem Set 3|
 
 ### Multiple regression 
