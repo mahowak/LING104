@@ -1,0 +1,47 @@
+---
+title: "Class 8 - Uniforms and Normals"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review from Class 7
+
+Review mean, standard deviation, normal distributions.
+
+```{r}
+```
+
+
+# Exercise 2
+
+
+```{r}
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
+arrange(d, -Iconicity)
+```
+
+
+Get the iconicity scores from d above. Rank them, look at them.
+
+Now make a histogram. Find the mean and standard deviation. 
+
+Now sample a normal distribution with that mean and standard deviation. 
+How similar are they?
+
+```{r}
+```
+
+# Mean as a model
+
+Task: for a random word, predict the iconicity.
+
+How wrong will we be!?
+
+How wrong will we be (squared)?
+
+Now do it for POS == "Interjection" vs. POS == "Name"
+
+How wrong are we?
