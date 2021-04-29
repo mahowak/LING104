@@ -1,0 +1,31 @@
+---
+title: "Class 9"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review mean as a model
+
+## Comparing the young and old participants
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+## Compute mean squared error using age and not using age
+
+# Now using a continuous variable as a predictor (WrittenFrequency), see how well you can predict RT
+
+Use geom_abline()
+
+```{r}
+
+```
+
+
+
+
