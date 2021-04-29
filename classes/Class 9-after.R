@@ -1,7 +1,7 @@
 library(tidyverse)
 #library(googlesheets4)
 
-d = read_csv("classes/anchor_data.csv")
+d = read_csv("LING104/classes/anchor_data.csv")
 
 d$LogL = log(d$`How many independent (unrelated) language families are there in the world? (Don't Google!)`)
 
