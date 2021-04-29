@@ -1,0 +1,8 @@
+Timestamp,"Using runif(), write a function to generate a random number between 1 and 1000.",Generate one random number between 1 and 1000 and write it here.,How many independent (unrelated) language families are there in the world? (Don't Google!)
+4/29/2021 14:29:09,"runif(1, 1, 1000)",7,17
+4/29/2021 15:39:58,"runif(1, 1, 1000)",672,53
+4/29/2021 15:40:03,"round(runif(1,1,1000))",73,10
+4/29/2021 15:40:09,384,270,25
+4/29/2021 15:40:34,"runif(1, min = 1, max = 1000)",667.0546,100
+4/29/2021 15:43:01,"the expresison runif(1, min = 0, max = 1000) inside of a function",135,30
+4/29/2021 15:44:06,"round(runif(1,1,1000))",58,25
