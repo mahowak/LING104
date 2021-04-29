@@ -102,7 +102,7 @@ We will spend the first few weeks getting started in R, learning to make plots a
 
 |Date|Topic|Required Reading|Out/Due|
 |-|-|-|-|
-|5/6| Linear models II | Winter 4.5-4.9 | Mini3 Due at beginning of class: Textbook exercises 4.10.1, 4.10.2|
+|5/6| Linear models II | Winter 4.5-4.9 | Mini3 Due at beginning of class: Textbook exercises 4.10.1 (The "Additional exercise" is optional), 4.10.2 (The x and y are created in 4.6 on pp 77-78)|
 |5/11| Linear models III | Winter 5.1-5.4   | |
 |5/13| Correlation | Winter 5.4.5.9| Mini4 Due at beginning of class: Textbook exercises 5.9.1|
 |5/18| Designing experiments: best practices and ethics|   | Due at beginning of class: Problem Set 3|
