@@ -1,0 +1,222 @@
+---
+title: 'Ling 104 Problem Set 3: Regression'
+author: "TODO"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Reading in the Data
+
+This problem set focuses on a data set relating to linguistic typology--comparing the characteristics across languages.
+
+One way in which languages vary is in whether they have a case system to mark nouns.
+
+In English, the case system exists only in the pronouns, and there is no case marking on the nouns. So we say "The dog chased the cat" and "The cat chased the dog" but do not change the word "dog" or "cat" if it's in object or subject position. But we do change pronouns depending on grammatical case: "The dog chased me." and not "The dog chased I."
+
+In other languages, like Finnish, there is a rich case system even on nouns. So in Finnish we say: "Koira ajoi kissaa" for "dog chased cat" and "Kissa ajoi koiraa" for "cat chased dog." (Not the different word endings! The extra "a" is the case system at work.)
+
+Interestingly, Old English (spoken from roughly the year 400 until 1100) did have a case system on nouns, but it was lost. This is a common pattern in world languages.
+
+Why does case disappear? One hypothesis is that L2 speakers (speakers learning a language as a second language) have a harder time remembering how to use case systems and so, when a language has a lot of L2 speakers, the case system is more likely to get lost. 
+
+We are going to analyze that, using some data from Bentz & Winter (2013).
+
+# Getting started with the data set
+
+First, we read in the data set. The column Language lists the language. Case.Cat tells us how many cases the language has in words, and Case.Rank is a numerical version of this. So a language with no cases has Case.Rank == 0, and if it has 2 cases its rank is 1. One with many cases (10 or more) has Case.Rank of 7. 
+
+Stock tells you the Language Family (the broad grouping of that language), and Region tells you the Region of the world.
+
+L1.Estimate is the estimated number of first language speakers of the language. L2.Estimate is the estimated number of second language speakers.Percent.L2 is the proportion of speakers that are L2 speakers, out of the total number of L1 + L2 speakers.
+
+Because these numbers are exponentially distributed, we take the log to make them easier to work with and call these variables LogL1 and LogL2. (To avoid 0's, we add 1 to the values before taking the log.)
+
+```{r}
+d = read_csv("Case_L2.csv")
+d$LogL1 = log(d$L1.Estimate + 1)
+d$LogL2 = log(d$L2.Estimate + 1)
+```
+
+# 1. Some basic stats
+
+Report the following (by printing tables):
+
+- the language with the most overall speakers (L1 + L2)
+
+- the language with the fewest overall speakers (L1 + L2)
+
+- the language with the highest Percent.L2
+
+- the language with the lowest Percent.L2
+
+```{r}
+# TODO
+```
+
+# 2. Means and medians
+
+Find the mean and median of the L1.Estimate column. Which is higher: the mean or median? Why?
+
+```{r}
+# TODO
+```
+
+TODO
+
+# 3. Relationship between L1.Estimate and L2.Estimate
+
+Let's explore the relationship between the number of L1 speakers and the number of L2 speakers.
+
+First, make a scatter plot of LogL1 vs. LogL2. We recommend you do this in ggplot(), since that will make it easier to do Q5.
+
+```{r}
+# TODO
+```
+
+# 4. Regression L2 and L1.
+
+Using LogL1 as a predictor, run a linear regression predicting the number of LogL2 speakers based on the number of LogL1 speakers.
+
+Print the regression output, and below, write one sentence describing what it tells us.
+
+```{r}
+# TODO
+```
+
+TODO
+
+# 5. Making a prediction
+
+Using the linear regression from Q4 and geom_abline(), add a line of best fit to the plot in Q3. It is fine to just manually input the intercept and slope based on what you saw in the regression output.
+
+```{r}
+# TODO
+```
+
+# 6. Compute the residuals
+
+Use the linear regression from Q4 to make predictions for the number of LogL2 speakers for each point in the data set. Do this by using the equation of the line (mx + b) with the intercept and slope values that you found.
+
+Identify 5 or 6 languages for which the prediction is farthest (in absolute value) from the true value. Which languages are these? If you have any ideas for why these languages have predictions that are so off, include them here (but that's not required).
+
+```{r}
+# TODO
+```
+
+TODO
+
+# 7. Make a prediction
+
+Now, let's say you want to make a prediction for a language which has 100,000 speakers (which, in log space, is 11.51). Use the regression to make a prediction for that data point.
+
+```{r}
+```
+
+# 8. Summarizing the relationship between L1 and L2
+
+In 1-2 sentences, describe the relationship between the number of L1 speakers and the number of L2 speakers. 
+
+TODO
+
+# 9. Now predict Case.Rank! First, use the mean as model.
+
+What we actually want to do is understand how the number and proportion of L2 speakers affects the variable Case.Rank. 
+
+First, let's use the mean as a model.
+
+Using the mean as a model (see Chapter 3 in the textbook), find the sum of the squared error for the variable Case.Rank.
+
+```{r}
+# TODO
+```
+
+# 10. Can we do better by using language family?
+
+Now, compute the mean of Case.Rank separately for each Language Family (which is called Stock in the data set). Then, compute the sum of the squared error and compare it to the value you found for Q9. 
+
+```{r}
+# TODO
+```
+
+# 11a. Prediction error for Mande
+
+Using the model in Q10 (which uses language family to make a prediction), make a prediction for Case.Rank for the language Bambara, a language in the Mande language family. What is the prediction error? Below, discuss why it is potentially problematic to use this as a prediction. (HINT: look at how many languages there are in the Mande family in this data set.)
+
+```{r}
+# TODO
+```
+
+TODO
+
+# 11b. Predicting out of sample
+
+Now, imagine I ask you to predict the Case.Rank for the language Mende, a language in the Mande family that is not in our data set. What would you predict using the mean as a model? What would you predict using the "language family" model in Q10? Discuss which prediction you think is better.
+
+TODO
+
+# 12. Using Percent.L2 to predict Case.Rank
+
+Make a plot where you put Percent.L2 on the x-axis and Case.Rank on the y-axis.
+
+```{r}
+# TODO
+```
+
+# 13. Regressing to predict Case.Rank
+
+Run a linear regression where you predict Case.Rank from Percent.L2. Get the intercept and slope, and plot a line using geom_abline().
+
+```{r}
+# TODO
+```
+
+# 14. Assessing the fit
+
+Get predictions from the linear model in Q13. Compute the sum of the squared error for predicting Case.Rank using this model. now do the same for a model where you just use the mean of Case.Rank as the model (mean as a model!). 
+
+
+```{r}
+# TODO
+```
+
+# 15. Computing R2
+
+Manually compute R-squared using the values in #14. Compare it to the R-squared that you get when running summary() on the regression lm() model.
+
+```{r}
+# TODO
+```
+
+# 16. Describe
+
+Describe the relationship, in 2-3 sentences, between Percent.L2 and Case.Rank.
+
+TODO
+
+# 17. Looking at LogL1
+
+Run a regression predicting Case.Rank from the log number of L1 speakers (LogL1). Is the predictor significant? What is the R-squared?
+
+```{r}
+```
+
+# 18. Looking at LogL2
+
+Run a regression predicting Case.Rank from the log number of L2 speakers (LogL2). Is the predictor significant? What is the R-squared?
+
+```{r}
+TODO
+```
+
+# 19. Using the answers to 15, 17, and 18, discuss which variable (among LogL1, LogL2, Percent.L2) best predicts Case.Rank.
+
+TODO
+
+# 20. How long did you spend on this problem set? Any comments?
+
+TODO

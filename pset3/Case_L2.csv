@@ -1,0 +1,67 @@
+Language,Case.Cat,Stock,Region,L1.Estimate,L2.Estimate,Percent.L2,Case.Rank,Case.Presence
+Vietnamese,No morphological case-marking,Austroasiatic,Southeast Asia,64317000,16000000,0.199210627886998,0,0
+"Khmer,Central",No morphological case-marking,Austroasiatic,Southeast Asia,13603400,1000000,0.0684772039388088,0,0
+Tagalog(includingFilipino),No morphological case-marking,Austronesian,Oceania,20426600,51000000,0.714019706943912,0,0
+Ilokano,No morphological case-marking,Austronesian,Oceania,7348300,2300000,0.238383964014386,0,0
+Fijian,No morphological case-marking,Austronesian,Oceania,392500,320000,0.449122807017544,0,0
+Chamorro,No morphological case-marking,Austronesian,Oceania,76350,30000,0.282087447108604,0,0
+Maori,No morphological case-marking,Austronesian,Oceania,35130,121980,0.776398701546687,0,0
+RapaNui,No morphological case-marking,Austronesian,Oceania,3320,1925,0.367016205910391,0,0
+Zulu,No morphological case-marking,Benue-Congo,S Africa,9790000,15850000,0.61817472698908,0,0
+"Swahili,Tanzania",No morphological case-marking,Benue-Congo,S Africa,2893815,55000000,0.950015126831769,0,0
+Kongo,No morphological case-marking,Benue-Congo,S Africa,5955908,5000000,0.456374770580403,0,0
+Kannada,6-7 cases,Dravidian,Indic,36863800,9000000,0.196233194807234,5,1
+Malayalam,6-7 cases,Dravidian,Indic,36531330,10000000,0.214908965636701,5,1
+Spanish,No morphological case-marking,Indo-European,Europe,343259405,105000000,0.234239368608451,0,0
+English,2 cases,Indo-European,Europe,339004069,169000000,0.33267450068397,1,0
+German,4 cases,Indo-European,Europe,97100000,50250000,0.341024770953512,3,1
+French,No morphological case-marking,Indo-European,Europe,88612817,80700000,0.476632551686858,0,0
+Romanian,2 cases,Indo-European,Europe,24808318,4000000,0.138848786659464,1,0
+Serbian,5 cases,Indo-European,Europe,10010275,11000000,0.523553356631458,4,1
+Greek,3 cases,Indo-European,Europe,12542245,11000000,0.467245158649908,2,1
+Croatian,5 cases,Indo-European,Europe,5546590,1953410,0.260454666666667,4,1
+Catalan,No morphological case-marking,Indo-European,Europe,9115080,5000000,0.354231077684292,0,0
+Bulgarian,No morphological case-marking,Indo-European,Europe,7897189,2067262,0.207463712752464,0,0
+Dutch,No morphological case-marking,Indo-European,Europe,21865145,5000000,0.186114759477382,0,0
+"Frisian,Western",No morphological case-marking,Indo-European,Europe,410500,174000,0.297690333618477,0,0
+Italian,No morphological case-marking,Indo-European,Europe,65848339,50000000,0.431598764657299,0,0
+Welsh,No morphological case-marking,Indo-European,Europe,317000,271000,0.460884353741497,0,0
+IrishGaelic,2 cases,Indo-European,Europe,1656790,581574,0.259821012132075,1,0
+Icelandic,4 cases,Indo-European,Europe,269025,9553,0.0342920115730603,3,1
+Polish,6-7 cases,Indo-European,Europe,39990670,1145760,0.0278526843481556,5,1
+Sinhalese,5 cases,Indo-European,Indic,15584375,2300000,0.128603879084396,4,1
+Urdu,2 cases,Indo-European,Indic,60586800,43413200,0.417434615384615,1,0
+Marathi,5 cases,Indo-European,Indic,70012927,3000000,0.0410886143490727,4,1
+Russian,6-7 cases,Indo-European,Inner Asia,151776975,110000000,0.420205023761162,5,1
+Latvian,5 cases,Indo-European,Inner Asia,1504880,500000,0.249391484777144,4,1
+Lithuanian,6-7 cases,Indo-European,Inner Asia,3327090,720000,0.177905606250417,5,1
+"Chinese,Mandarin",No morphological case-marking,Sino-Tibetan,Southeast Asia,875744667,192383000,0.180112364789068,0,0
+Burmese,8-9 cases,Sino-Tibetan,Southeast Asia,32309850,15250000,0.320648614324898,6,1
+Nenets,6-7 cases,Uralic,Inner Asia,41302,8260,0.166659941083895,5,1
+Estonian,10 or more cases,Uralic,Inner Asia,1274330,67000,0.0499504223420038,7,1
+Finnish,10 or more cases,Uralic,Inner Asia,5504695,161243,0.028458306462231,7,1
+Japanese,8-9 cases,Japanese,N Coast Asia,126026700,1500000,0.0117622427303459,6,1
+Hausa,No morphological case-marking,Chadic,African,24594000,15000000,0.378845279587816,0,0
+Indonesian,No morphological case-marking,Austronesian,Southeast Asia,21033000,140000000,0.869387020051791,0,0
+Thai,No morphological case-marking,Tai-Kadai,Southeast Asia,33231195,34500000,0.509366474340221,0,0
+Amharic,2 cases,Semitic,Greater Abyssinia,17464250,5500000,0.239502705291921,1,0
+"Oromo,All",6-7 cases,Cushitic,S Africa,20600000,2000000,0.0884955752212389,5,1
+Hebrew,No morphological case-marking,Semitic,Greater Mesopotamia,5316700,4683300,0.46833,0,0
+Kanuri,6-7 cases,Saharan,African Savannah,3820250,500000,0.115734043168798,5,1
+Ewe,No morphological case-marking,Kwa,African Savannah,3112000,500000,0.138427464008859,0,0
+Bambara,No morphological case-marking,Mande,African Savannah,2772340,10000000,0.782941888487153,0,0
+Bench(Gimira),6-7 cases,Omotic,Greater Abyssinia,174000,22640,0.11513425549227,5,1
+Kutenai,No morphological case-marking,Kutenai,Basin and Plains,12,310,0.962732919254658,0,0
+Makah,No morphological case-marking,Wakashan,Alaska-Oregon,0,2224,1,0,0
+Sango,No morphological case-marking,Adamawa-Ubangi,African Savannah,404000,1600000,0.798403193612774,0,0
+Yoruba,No morphological case-marking,Niger-Congo,African Savannah,19380800,2000000,0.0935418693407169,0,0
+Abkhaz,2 cases,NorthCaucasian,Greater Mesopotamia,117350,7041,0.0566037735849057,1,0
+Somali,2 cases,Cushitic,Greater Abyssinia,13871700,500000,0.0347905954062498,1,0
+Araona,5 cases,Pano-Tacanan,NE South America,81,9,0.1,4,1
+Georgian,6-7 cases,Kartvelian,Greater Mesopotamia,4255270,80000,0.0184532912598293,5,1
+Turkish,6-7 cases,Turkic,Greater Mesopotamia,62375060,8390200,0.118563826374693,5,1
+Hungarian,10 or more cases,Uralic,Europe,13500635,203966,0.0148830308886775,7,1
+Pitjantjatjara,10 or more cases,Pama-Nyungan,S Australia,2310,500,0.177935943060498,7,1
+Chuvash,6-7 cases,Turkic,Inner Asia,1720000,200000,0.104166666666667,5,1
+Tiwi,No morphological case-marking,Tiwi,N Australia,0,1830,1,0,0
+Persian,2 cases,Indo-European,Greater Mesopotamia,47430600,62000000,0.566569131486074,1,0
