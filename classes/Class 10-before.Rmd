@@ -1,0 +1,69 @@
+---
+title: "Class 10"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review regression, minimizing mean squared error, finding line of best fit
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# What is R-squared? Proportion of variance explained
+
+```{r}
+```
+
+# Introducing the regression lm()
+
+```{r}
+```
+
+
+# What is the Std.Error? Measures uncertainty 
+
+```{r}
+l = lm(data=d, RT ~ Familiarity)
+d$Resid = residuals(l)
+sqrt(sum(d$Resid^2)/((nrow(d) - 2) * sum((d$Familiarity - mean(d$Familiarity))^2)))
+
+a = NULL
+for (i in 1:1000) {
+  d.new = sample_n(d, nrow(d), replace=T)
+  l = lm(data=d.new, RT ~ Familiarity)
+  fam.coef = coef(l)[2]
+  a = append(a, fam.coef)
+}
+
+hist(a, breaks=50)
+sd(a)
+summary(l)
+
+-.063/sd(a)
+
+
+```
+
+# Now scramble the values and see what the coefficient is
+
+```{r}
+```
+
+# Now using a continuous variable as a predictor (WrittenFrequency), see how well you can predict RT
+
+```{r}
+
+```
+
+# Which is better at predicting RT? Familiarity or WrittenFrequency?
+
+```{r}
+
+```
+
+
