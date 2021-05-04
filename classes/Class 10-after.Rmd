@@ -1,0 +1,148 @@
+---
+title: "Class 10"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review regression, minimizing mean squared error, finding line of best fit
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+## Predict reaction time based on Familiarity
+
+```{r width=3, height=3}
+ggplot(d, aes(x=Familiarity, y=RT)) + geom_point()
+
+# l = lm(data=d, thing_predicted ~ 1 + predictor1)
+l = lm(data=d, RT ~ 1 + Familiarity)
+
+ggplot(d, aes(x=Familiarity, y=RT)) + geom_point() +
+  geom_abline(intercept=6.78, slope=-.06, colour="red")
+
+d$Prediction.Manual = 6.78 - .06 * d$Familiarity
+
+filter(d, Word == "dog") %>%
+  select(Word, Familiarity, RT, Prediction)
+
+d$Prediction.Automatic = predict(l)
+
+filter(d, Word == "dog") %>%
+  select(Word, Familiarity, RT, Prediction.Manual, Prediction.Automatic)
+```
+
+# What is R-squared? Proportion of variance explained
+
+```{r}
+sse.l = sum((d$Prediction.Manual - d$RT)^2)
+
+sse.mean.as.model = sum((mean(d$RT) - d$RT)^2)
+
+1 - sse.l/sse.mean.as.model
+
+summary(l)
+```
+
+# Play around with a scrambled version of the data
+
+```{r width=3, height=3}
+d$RT.random = sample(d$RT)
+l.random = lm(data=d, RT.random ~ Familiarity)
+ggplot(d, aes(x=Familiarity, y=RT.random)) + geom_point()
+l.random
+
+d$Prediction.Random = 6.54
+mean(d$RT.random)
+
+sse.l.random = sum((d$Prediction.Random - d$RT.random)^2)
+sse.mean.as.model.random = sum((mean(d$RT.random) - d$RT.random)^2)
+
+1 - sse.l.random/sse.mean.as.model.random
+
+```
+
+```{r}
+d$RT.Duplicated = d$RT
+l.duplicated = lm(data=d, RT ~ RT.Duplicated)
+l.duplicated
+ggplot(d, aes(x=RT.Duplicated, y=RT)) + geom_point()
+
+d$Perfect.Predictions = 0 + d$RT.Duplicated 
+
+sum((d$Perfect.Predictions - d$RT)^2)
+
+summary(l.duplicated)
+```
+
+# Introducing the regression lm()
+
+```{r}
+l = (lm(data=d, RT ~ Familiarity))
+
+d$Prediction = predict(l)
+d$Residuals = d$RT - d$Prediction
+summary(d$Residuals)
+
+hist(d$Residuals)
+```
+
+
+# What is the Std.Error? Measures uncertainty 
+
+```{r}
+l = lm(data=d, RT ~ Familiarity)
+d$Resid = residuals(l)
+
+# formula for standard error on the coefficient
+sqrt(sum(d$Resid^2)/((nrow(d) - 2) * sum((d$Familiarity - mean(d$Familiarity))^2)))
+
+a = NULL
+for (i in 1:1000) {
+  d.new = sample_n(d, nrow(d), replace=T)
+  l = lm(data=d.new, RT ~ Familiarity)
+  fam.coef = coef(l)[2]
+  a = append(a, fam.coef)
+}
+
+hist(a, breaks=50)
+sd(a)
+summary(l)
+
+-.060/sd(a)
+
+a
+
+hist(rnorm(1000, 0, 1))
+```
+
+# Now scramble the values and see what the coefficient is
+
+```{r}
+```
+
+# Now using a continuous variable as a predictor (WrittenFrequency), see how well you can predict RT
+
+```{r}
+
+```
+
+# Exercise: Which is better at predicting RT? Familiarity or WrittenFrequency?
+
+```{r}
+ggplot(d, aes(x=WrittenFrequency, y=RT)) + geom_point()
+
+summary(lm(data=d, RT ~ Familiarity))
+summary(lm(data=d, RT ~ WrittenFrequency))
+
+l.written = lm(data=d, RT ~ WrittenFrequency)
+d$resid = residuals(l.written)
+
+ggplot(d, aes(x=WrittenFrequency, resid)) + geom_point()
+```
+
+
