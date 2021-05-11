@@ -1,0 +1,168 @@
+---
+title: "Class 11"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review regression, minimizing mean squared error, finding line of best fit
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# Exercise: Which is better at predicting RT? Familiarity or WrittenFrequency?
+
+```{r}
+ggplot(d, aes(x=WrittenFrequency, y=RT)) + geom_point()
+
+summary(lm(data=d, RT ~ Familiarity))
+summary(lm(data=d, RT ~ WrittenFrequency))
+
+l.written = lm(data=d, RT ~ WrittenFrequency)
+d$resid = residuals(l.written)
+
+ggplot(d, aes(x=WrittenFrequency, resid)) + geom_point()
+ggplot(d, aes(x=WrittenFrequency, RT)) + geom_point()
+
+
+filter(d, WrittenFrequency > 10)
+d$Prediction.L = predict(l.written)
+
+select(d, Word, WrittenFrequency, RT, Prediction.L) %>%
+  filter(WrittenFrequency > 10)
+```
+
+# Correlation
+
+```{r}
+# r: correlation coefficient
+cor(d$Familiarity, d$RT)
+cor(d$WrittenFrequency, d$RT)
+```
+
+# What about centering the variable? 
+
+```{r}
+l.written = lm(data=d, RT ~ WrittenFrequency)
+# y = mx + b
+# y = m*0 + b
+# y = b
+
+hist(d$WrittenFrequency)
+d$WrittenFrequency.Centered = 
+  d$WrittenFrequency - mean(d$WrittenFrequency)
+
+hist(d$WrittenFrequency.Centered)
+mean(d$WrittenFrequency.Centered)
+
+# use the centered variable to run our regression
+l.written.centered = lm(data=d, RT ~ WrittenFrequency.Centered)
+summary(l.written.centered)
+# y = mx + b
+```
+
+# Does centering change R-squared?
+
+```{r}
+summary(l.written)
+summary(l.written.centered)
+
+# y = mx + b
+```
+
+
+# Reviewing logarithms
+
+```{r}
+d$WrittenCount = exp(d$WrittenFrequency)
+d$WrittenCount
+select(d, Word, WrittenCount)
+
+ggplot(d, aes(x=WrittenCount, y=RT)) +
+  geom_point() +
+  geom_smooth(method=lm)
+
+ggplot(d, aes(x=log(WrittenCount), y=RT)) +
+  geom_point() +
+  geom_smooth(method=lm)
+
+
+hist(d$WrittenCount, breaks=60)
+
+# rank
+d$Rank = rank(d$WrittenCount)
+plot(d$Rank, d$WrittenCount)
+plot(d$Rank, log(d$WrittenCount))
+
+l.writtencount = lm(RT ~ WrittenCount, data=d)
+summary(l.writtencount)
+
+log2(2)
+log2(4)
+log2(8)
+log2(16)
+log2(1024)
+log2(1000000)
+log2(2 * 1000000)
+
+hist(d$WrittenCount, breaks=50)
+
+l.writtencount
+l.written.centered
+
+#written count 30000
+# written count 100000
+# y = mx + b
+6.55 + 30000 * -.03
+6.55 + 100000 * -.03
+
+log(30000)
+log(100000)
+
+
+```
+
+```{r}
+ggplot(d, aes(x=exp(WrittenFrequency), y=exp(RT))) + geom_point()
+ggplot(d, aes(x=log(exp(WrittenFrequency)), y=log(exp(RT)))) + geom_point()
+
+```
+
+```{r width=3, height=3}
+ggplot(d, aes(x=CorrectLexdec, y=RT)) + geom_point() +
+  geom_smooth(method=lm)
+filter(d, CorrectLexdec > 14, CorrectLexdec < 16)
+
+l.correct = lm(data=d, RT ~ CorrectLexdec)
+summary(l.correct)
+
+# artifically put more data on the left side of the plot
+e = bind_rows(d, filter(d, CorrectLexdec < 10))
+e = bind_rows(e, filter(d, CorrectLexdec < 10))
+
+ggplot(e, aes(x=CorrectLexdec, y=RT)) + geom_point() +
+  geom_smooth(method=lm)
+
+d$CorrectLexdec.2 = d$CorrectLexdec * d$CorrectLexdec
+l.correct.2 = lm(data=d, RT ~ CorrectLexdec + CorrectLexdec.2)
+summary(l.correct.2)
+
+d$DifferenceFrom15 = abs(d$CorrectLexdec - 15)
+
+ggplot(d, aes(x=DifferenceFrom15, y=RT)) + geom_point() +
+  geom_smooth(method=lm)
+
+l.correct.3 = lm(data=d, RT ~ DifferenceFrom15)
+summary(l.correct.3)
+summary(l.correct)
+
+d$RT.1000 = d$RT + 1000
+ggplot(d, aes(x=DifferenceFrom15, y=RT.1000)) + geom_point() +
+  geom_smooth(method=lm)
+
+```
+
