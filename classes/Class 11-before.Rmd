@@ -1,0 +1,40 @@
+---
+title: "Class 11"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Review regression, minimizing mean squared error, finding line of best fit
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# Exercise: Which is better at predicting RT? Familiarity or WrittenFrequency?
+
+```{r}
+ggplot(d, aes(x=WrittenFrequency, y=RT)) + geom_point()
+
+summary(lm(data=d, RT ~ Familiarity))
+summary(lm(data=d, RT ~ WrittenFrequency))
+
+l.written = lm(data=d, RT ~ WrittenFrequency)
+d$resid = residuals(l.written)
+
+ggplot(d, aes(x=WrittenFrequency, resid)) + geom_point()
+```
+
+# What about centering the variable? 
+
+```{r}
+```
+
+# Reviewing logarithms
+
+# Why use logarithms
+
+# Exercise: compare predictions using exp(d$WrittenFrequency) and d$WrittenFrequency
