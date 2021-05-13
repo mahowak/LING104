@@ -1,0 +1,36 @@
+---
+title: "Class 12"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Lexicons across languages
+
+```{r}
+a = list.files("../data/lexicons/")
+d = map_df(a, 
+           function(x) {read_tsv(paste0("../data/lexicons/", x)) %>%
+               mutate(lang=gsub("out_", "", x))}
+           )
+```
+
+# What is the relationship between length and frequency across languages?
+
+```{r}
+```
+
+# Look at Zipfian relationship
+
+From Wikipedia: "Zipf's law was originally formulated in terms of quantitative linguistics, stating that given some corpus of natural language utterances, the frequency of any word is inversely proportional to its rank in the frequency table. Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, etc."
+
+```{r}
+d$rank = rank(-d$count)
+
+the.count = 107270897
+d$rel.to.the = d$count/the.count
+d$inv.rank = 1/d$rank
+plot(d$inv.rank,d$rel.to.the)
+```
