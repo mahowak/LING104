@@ -1,0 +1,122 @@
+---
+title: "Class 12"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Lexicons across languages (observational data set)
+
+Zipf: Principle of Least Effort.
+
+```{r}
+a = list.files("../data/lexicons/")
+# a = c("out_ja.txt", "out_zh.txt", "out_en.txt")
+d = map_df(a, 
+           function(x) {
+             read_tsv(paste0("../data/lexicons/", x)) %>%
+               mutate(lang=gsub("out_", "", x))}
+           )
+
+select(d, lang, word, count, length)
+d
+```
+
+# What is the relationship between length and frequency across languages?
+
+```{r}
+ggplot(d, aes(x=length, y=count)) + geom_point()
+
+ggplot(d, aes(x=length, y=log(count))) + geom_point()
+
+d = group_by(d, lang) %>%
+  mutate(lang.total = sum(count))
+
+d$relative.freq = d$count / d$lang.total
+
+ggplot(d, aes(x = length, y = log(relative.freq))) +
+  geom_point() +
+  facet_grid(lang~.)
+
+x = group_by(d, length, lang) %>%
+  summarize(len.mean = mean(relative.freq))
+
+ggplot(d, aes(x = log(length), y = log(relative.freq))) +
+  geom_point(alpha = .2) +
+  facet_grid(.~lang) +
+  geom_line(data= x, aes(x = log(length), y = log(len.mean)), color = "red")
+```
+
+```{r}
+d$count.log = log(d$count)
+d$length.log = log(d$length)
+en = filter(d, lang == "en.txt")
+l.en = lm(data=en,
+          count.log ~ length.log)
+summary(l.en)
+cor(en$count.log, en$length.log)
+
+group_by(d, lang) %>%
+  summarise(cor.length.lang = cor(count.log, length.log))
+```
+
+# Look at Zipfian relationship
+
+From Wikipedia: "Zipf's law was originally formulated in terms of quantitative linguistics, stating that given some corpus of natural language utterances, the frequency of any word is inversely proportional to its rank in the frequency table. Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, etc."
+
+```{r}
+d = group_by(d, lang) %>%
+  mutate(rank.count = rank(-count))
+
+select(d, word, rank.count)
+hist(log(filter(d, lang == "en.txt")$count), breaks=100)
+
+d = group_by(d, lang) %>%
+  mutate(max.count = max(count)) %>%
+  ungroup() %>%
+  mutate(prop.count = count/max.count)
+
+filter(d, word == "and")
+
+d$zipf.prediction.prop.count = 1/d$rank.count
+
+ggplot(d, aes(x=prop.count, y=zipf.prediction.prop.count)) + geom_point() + 
+  facet_grid(. ~ lang) +
+  geom_line()
+
+# Zipf: linear relationship between log count and log rank
+en = filter(d, lang == "en.txt")
+
+ggplot(en, aes(x=rank.count, y=count)) + geom_point()
+ggplot(en, aes(x=rank.count, y=log(count))) + geom_point()
+ggplot(en, aes(x=log(rank.count), y=log(count))) + geom_point()
+
+# spanish
+ggplot(filter(d, lang == "es.txt"), aes(x=log(rank.count), y=log(count))) + geom_point() + 
+  geom_smooth(method=lm)
+
+# english
+ggplot(filter(d, lang == "en.txt"), aes(x=log(rank.count), y=log(count))) + geom_point() + 
+  geom_smooth(method=lm)
+
+# basque
+ggplot(filter(d, lang == "eu.txt"), aes(x=log(rank.count), y=log(count))) + geom_point() + 
+  geom_smooth(method=lm)
+
+
+
+# english
+ggplot(filter(d, lang == "en.txt")[1:300, ], 
+       aes(x=log(rank.count), y=log(count), label=word)) + geom_text() + 
+  geom_smooth(method=lm) 
+
+ggplot(filter(d, lang == "en.txt")[2000:5000, ], 
+       aes(x=log(rank.count), y=log(count), label=word)) + geom_point() + 
+  geom_smooth(method=lm) 
+
+ggplot(filter(d, lang == "en.txt")[5000:8000, ], 
+       aes(x=log(rank.count), y=log(count), label=word)) + geom_point() + 
+  geom_smooth(method=lm) 
+```
