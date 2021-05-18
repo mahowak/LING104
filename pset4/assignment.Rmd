@@ -63,14 +63,13 @@ First, we read in the data set as a data frame d.
 
 ```{r, include=F}
 library(tidyverse)
-library(kableExtra)
 
 knitr::opts_chunk$set(echo=FALSE)
 knitr::opts_chunk$set(warning=FALSE)
 knitr::opts_chunk$set(message=FALSE)
 
-d = read_csv("~/tangramdata/combined_data.csv")
-total_times = read_csv("~/tangramdata/total_times.csv")
+d = read_csv("combined_data.csv")
+total_times = read_csv("total_times.csv")
 d = left_join(d, total_times) 
 d = select(d, gameid, roundNum, occurrenceNum, intendedName, contents,
            correct, char_count, word_count, exchanges, jaccard_with_prev_occ,
