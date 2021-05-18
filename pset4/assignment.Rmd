@@ -1,0 +1,121 @@
+---
+title: "Project 4: Communication Game Project"
+output:
+  html_document:
+    df_print: paged
+---
+
+For Project 4, you have two options:
+
+You can do the Project below, or you can pick a language-related data set that interests you and do your own analysis.
+
+In either case, the document does not need to be long: equivalent to 2-3 pages in Microsoft Word (but turn it in as an RMarkdown html file). 
+
+In your writeup, you need to do the following:
+
+- make a graph and describe what it shows
+- run a linear regression and discuss the results
+- report a correlation
+- use a logarithm
+
+The writeup should use RMarkdown with blocks of text and blocks of code, like we have been doing for the problem set.
+
+Below is the description for the experiment that is the "default" option for Project 4. If you are analyzing your own data set, you can ignore the below.
+
+# Background
+
+If I were inviting a work colleague to come over to hang out with me and my dog in the park, I might say something like: “I heard you might be in the area this weekend. If so (and it’s not raining!), would you like to drop by and go to the park with me and Fogo?”
+
+If my partner is in the other room and I want to see if he’s up for a dog walk with me, I might just text him this: 🎾.
+
+In both cases, the meanings are similar and my goals are similar: I want to see if the person I’m texting will come to the park with me and my dog. But, in the first case, it takes about 40 words. In the second case, it takes one emoji.
+
+What if I had just texted my colleague the tennis ball emoji? Would they have even known what I was talking about? Maybe they would have thought I wanted to play tennis. Or watch tennis. And they might have found my terseness rude!
+
+But my partner knows that our dog loves the park and loves chasing his ball there and that we do it almost everyday. Our shared knowledge means that we can be shorter and more efficient in our communication.
+
+This property of language (the importance of shared context) affects the way languages change and evolve over time. This is exactly what you will explore in this project by playing a communication game in which you and a partner communicated about shapes.
+
+# Familiarize yourself with the experiment
+
+The best way to get a sense of the experiment is to play with it!
+
+With a partner, both go to this link, but replace the XXXXX with a codeword that you decide (doesn't matter what it is). It can be both your names like (KyleJiyoung): 
+http://euca-169-231-235-145.eucalyptus.cloud.aristotle.ucsb.edu:8888/tangrams_sequential/index.html?gameId=XXXXX
+
+You will find yourself in an interactive game, in which there are a series of shapes and a chat box where you can chat with your partner.
+
+Chat your name to your partner in the box, to make sure that you are both there and in the same room. (I recommend you be on Zoom together, at least during the initial setup.)
+
+The goal of the game is for the Director to tell the Matcher which object to click (the one in black), by entering text into the chat box. The Matcher clicks a box and will get feedback whether they clicked the correct box. For this game, you will always be only either the Director or Matcher.
+
+Note: everything you record in the chat box will be recorded and you will get to analyze it later! So please do not enter anything in the chat box you would not want to be seen by your instructors and everyone else in the class.
+
+
+# Basics 
+
+The basics of the experiment were that there were 12 objects to describe and you completed 6 Rounds, each consisting of 12 trials. So there were 12 * 6 = 72 trials total, over the 6 rounds. Your team saw each object exactly 6 times (if you completed the whole thing). What we are interested in is seeing how communication changes over time, and what that can tell us about language.
+
+
+# Intro questions and overview 
+
+First, we read in the data set as a data frame d.
+
+```{r, include=F}
+library(tidyverse)
+library(kableExtra)
+
+knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+
+d = read_csv("~/tangramdata/combined_data.csv")
+total_times = read_csv("~/tangramdata/total_times.csv")
+d = left_join(d, total_times) 
+d = select(d, gameid, roundNum, occurrenceNum, intendedName, contents,
+           correct, char_count, word_count, exchanges, jaccard_with_prev_occ,
+           jaccard_with_random)
+```
+Here are what the variables in the data frame mean:
+
+- gameid: the ID for an individual set of players
+- roundNum: Each team seems 72 trials or rounds. roundNum is thus a number from 1 to 72.
+- occurenceNum: How many times the particular object has been seen. When occurrenceNum is 1, that means it's the first time. If it's 3, that means it's the third time.
+- intendedName: what object was supposed to be guessed
+- contents: what was actually said by the matcher + director
+- correct: if the matcher clicked the correct thing
+- char_count: number of letters in the conversation
+- word_count: number of words in the conversation
+- jaccard_with_prev_occ: measure of similarity between this trial and the previous trial for the same object. So if this trial shows object A, how similar is this text to the LAST time the team saw object A.
+- jaccard_with_random: measure of similarity between this trial's contents and the trial's contents for the same object for a random team (that is, NOT this team).
+
+# Analysis
+
+Your job is to analyze this data! 
+
+You can think about the following questions, but don't need to answer all of them. And you can answer some of your own! The document does not need to be long: equivalent to 2-3 pages in Microsoft Word (but turn it in as an RMarkdown html file). 
+
+- How long are the text responses (contents column) in general? What distribution does it follow?
+- Do longer texts lead to more accurate answers?
+- How does accuracy change over the course of the experiment?
+- How does the length of text change over the course of the experiment?
+- How does textual similarity change over the course of the experiment?
+- What is the relationship between char_count and word_count?
+- Are some objects (intendedName column) easier or harder to guess than others? Do they generate texts of different lengths?
+
+In your writeup, you need to do the following:
+
+- make a graph and describe what it shows
+- run a linear regression and discuss the results
+- report a correlation
+- use a logarithm
+
+The writeup should use RMarkdown with blocks of text and blocks of code, like we have been doing for the problem set.
+
+Be sure to write a few sentences of a conclusin paragraph: what does the analysis tell us overall?
+
+This is intentionally a bit open-ended: be creative and apply the statistical lessons we learned in class. 
+
+```{r}
+```
+
