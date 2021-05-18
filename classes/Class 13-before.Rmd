@@ -1,0 +1,19 @@
+---
+title: "Class 12"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Back to our favorite data set: Lexical decision times
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# Multiple regression
+
+# Categorical predictors
