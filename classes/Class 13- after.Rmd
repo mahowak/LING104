@@ -1,0 +1,105 @@
+---
+title: "Class 13"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Back to our favorite data set: Lexical decision times
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# Multiple regression
+
+```{r}
+ggplot(d, aes(x=LengthInLetters, y=RT)) + geom_point()
+
+group_by(d, LengthInLetters) %>%
+  summarise(m=mean(RT))
+
+l = lm(RT ~ LengthInLetters, data=d)
+summary(l)
+
+l.log = lm(RT ~ log(LengthInLetters), data=d)
+summary(l.log)
+
+
+l2 = lm(RT ~ LengthInLetters + WrittenFrequency, data=d)
+
+# y = mx + b -> one predictor
+# y = beta1 * x1 + beta2 * x2 + b -> two predictors
+```
+
+Predict the RT of a word which has 5 letters and a WrittenFrequency of 6.91 (in log space).
+
+```{r}
+l.5 = lm(data=d, RT ~ WrittenFrequency + LengthInLetters +
+           Ncount + MeanBigramFrequency + WrittenSpokenFrequencyRatio)
+summary(l.5)
+```
+
+# Categorical predictors
+
+```{r}
+unique(d$AgeSubject)
+
+d$Predict.Mean = mean(d$RT)
+d = group_by(d, AgeSubject) %>%
+  mutate(Predict.AgeGroup = mean(RT))
+unique(d$Predict.AgeGroup)
+
+sse.mean.as.model = sum((d$RT - d$Predict.Mean)^2)
+sse.agegroup.as.model = sum((d$RT - d$Predict.AgeGroup)^2)
+
+1 - sse.agegroup.as.model/sse.mean.as.model
+
+d$AgeVariable = ifelse(d$AgeSubject == "young", 0, 1)
+sample_n(d, 10) %>% select(AgeSubject, AgeVariable)
+
+l.cat = lm(data=d, RT ~ AgeVariable)
+# l.cat = lm(data=d, RT ~ 1 + AgeVariable)
+# l.cat = lm(data=d, RT ~ 0 + AgeVariable) # get rid of intercept
+
+e = tibble(AgeVariable = 0)
+
+predict(l.cat, newdata=e)
+
+summary(l.cat)
+# y = mx + b
+# young -> predict intercept -> 6.43
+# old -> predict intercept + 1 * slope -> 6.43 + .22 -> 6.65
+
+unique(d$Predict.AgeGroup)
+```
+
+# Combine multiple regression with categorical predictors
+
+```{r}
+l.cat.mult = lm(data=d, RT ~ WrittenFrequency + 
+                  LengthInLetters + AgeVariable)
+summary(l.cat.mult)
+
+l.cat.mult.2 = lm(data=d, RT ~ WrittenFrequency + 
+                  LengthInLetters + AgeSubject)
+summary(l.cat.mult.2)
+```
+
+# More interpretable predictors by normalizing
+
+```{r}
+d$WrittenFrequency.Normalized = (d$WrittenFrequency - mean(d$WrittenFrequency))/sd(d$WrittenFrequency)
+
+d$LengthInLetters.Normalized = (d$LengthInLetters - mean(d$LengthInLetters))/sd(d$LengthInLetters)
+
+d$AgeVariable.Normalized = (d$AgeVariable - mean(d$AgeVariable))/sd(d$AgeVariable)
+
+l.cat.mult.3 = lm(data=d, RT ~ WrittenFrequency.Normalized + 
+                  LengthInLetters.Normalized + AgeVariable.Normalized)
+
+
+```
