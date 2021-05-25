@@ -1,0 +1,262 @@
+---
+title: "Class 14"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Back to our favorite data set: Lexical decision times
+
+```{r}
+d = read_csv("../pset2/english.csv")
+d$RT = d$RTlexdec
+```
+
+# Multiple regression
+
+```{r}
+ggplot(d, aes(x=LengthInLetters, y=RT)) + geom_point()
+
+group_by(d, LengthInLetters) %>%
+  summarise(m=mean(RT))
+
+l = lm(RT ~ LengthInLetters, data=d)
+summary(l)
+
+l.log = lm(RT ~ log(LengthInLetters), data=d)
+summary(l.log)
+
+
+l2 = lm(RT ~ LengthInLetters + WrittenFrequency, data=d)
+summary(l2)
+# y = mx + b -> one predictor
+# y = beta0 + beta1 * x1 + beta2 * x2 + beta3 * x3 -> two predictors
+```
+
+Predict the RT of a word which has 5 letters and a WrittenFrequency of 6.91 (in log space).
+
+```{r}
+l.5 = lm(data=d, RT ~ WrittenFrequency + LengthInLetters +
+           Ncount + MeanBigramFrequency + WrittenSpokenFrequencyRatio)
+summary(l.5)
+```
+
+# Categorical predictors
+
+```{r}
+unique(d$AgeSubject)
+
+d$Predict.Mean = mean(d$RT)
+d = group_by(d, AgeSubject) %>%
+  mutate(Predict.AgeGroup = mean(RT))
+unique(d$Predict.AgeGroup)
+
+sse.mean.as.model = sum((d$RT - d$Predict.Mean)^2)
+sse.agegroup.as.model = sum((d$RT - d$Predict.AgeGroup)^2)
+
+1 - sse.agegroup.as.model/sse.mean.as.model
+
+d$AgeVariable = ifelse(d$AgeSubject == "young", 0, 1)
+sample_n(d, 10) %>% select(AgeSubject, AgeVariable)
+
+l.cat = lm(data=d, RT ~ AgeVariable)
+# l.cat = lm(data=d, RT ~ 1 + AgeVariable)
+# l.cat = lm(data=d, RT ~ 0 + AgeVariable) # get rid of intercept
+
+e = tibble(AgeVariable = 0)
+
+predict(l.cat, newdata=e)
+
+summary(l.cat)
+# y = mx + b
+# young -> predict intercept -> 6.43
+# old -> predict intercept + 1 * slope -> 6.43 + .22 -> 6.65
+
+1 - sse.agegroup.as.model/sse.mean.as.model
+summary(l.cat)
+unique(d$Predict.AgeGroup)
+```
+
+# Combine multiple regression with categorical predictors
+
+```{r}
+l.cat.mult = lm(data=d, RT ~ WrittenFrequency + 
+                  LengthInLetters + AgeVariable)
+summary(l.cat.mult)
+
+l.cat.mult.2 = lm(data=d, RT ~ WrittenFrequency + 
+                  LengthInLetters + AgeSubject)
+summary(l.cat.mult.2)
+
+d$prediction = predict(l.cat.mult.2)
+```
+
+# Categorical predictors with more than one factor
+
+```{r}
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
+
+arrange(d, -Iconicity)
+
+d.verbnoun = filter(d, POS %in% c("Verb", "Noun")) %>%
+  mutate(is.verb = ifelse(POS == "Verb", 1, 0))
+
+select(d.verbnoun, POS, is.verb)
+
+l = lm(data=d.verbnoun, Iconicity ~ is.verb)
+summary(l)
+# y = beta0 + beta1 * x1
+# when verb: y = beta0 + beta1 * 1
+```
+
+## More than one predictor
+
+```{r}
+unique(d$POS)
+# BAD SOLUTION!!! :-(
+# NOUN = 0
+# VERB = 1
+# ADJECTIVE = 2
+# INTERJECTION = 3
+
+d$POS.bad = as.integer(as.factor(d$POS))
+l.bad = lm(data=d, Iconicity ~ POS.bad)
+summary(l.bad)
+
+ggplot(d, aes(x=POS.bad, y=Iconicity)) +
+  geom_point() + 
+  geom_smooth(method=lm)
+```
+
+## Better Solution
+
+```{r}
+# y = beta0 + beta1 * x1 + beta2 * x2 + beta3 * x3
+unique(d$POS)
+d = filter(d, is.na(POS) == F)
+d = mutate(d, IsNoun = ifelse(POS == "Noun", 1, 0),
+           IsVerb = ifelse(POS == "Verb", 1, 0),
+           IsAdj = ifelse(POS == "Adjective", 1, 0),
+           IsGramm = ifelse(POS == "Grammatical", 1, 0),
+           IsInt = ifelse(POS == "Interjection", 1, 0),
+           IsName = ifelse(POS == "Name", 1, 0),
+           IsAdverb = ifelse(POS == "Adverb", 1, 0))
+select(d, IsNoun, IsVerb, IsAdverb)
+
+l.mulitcat = lm(data=d, Iconicity ~ IsNoun + IsVerb + IsAdj + 
+     IsGramm + IsInt + IsName + IsAdverb)
+summary(l.mulitcat)
+.8197 + .3556 
+
+# y = beta0 + beta1 * x1 + beta2 * x2 + beta3 * x3
+
+# making a prediction for an adjective
+# y = beta0 + beta1 * 0 + beta2 * 0 + beta3 * 1
+
+filter(d, POS == "Adjective")
+.8197 + .35
+
+summary(lm(data=d, Iconicity ~ POS))
+unique(d$POS)
+```
+
+# Testing the regression assumptions
+
+## Are the residuals normal?
+
+```{r}
+d = select(d, Iconicity, POS, Conc, Freq) %>%
+  na.omit()
+l.icon = lm(data=d, Iconicity ~ POS + 
+              Conc + log(Freq))
+summary(l.icon)
+
+d$Residuals = resid(l.icon)
+
+hist(d$Residuals, breaks=50)
+
+ggplot(d, aes(x=log(Freq), y=Residuals)) + geom_point()
+ggplot(d, aes(x=Conc, y=Residuals)) + geom_point()
+
+```
+
+## Does the variance of the residuals change? Heteroscedasticity
+
+```{r}
+ggplot(d, aes(x=Iconicity, y=Residuals)) + geom_point()
+
+d$Predict = predict(l.icon)
+
+ggplot(d, aes(x=Iconicity, y=Predict)) + geom_point()
+
+filter(d, Predict > 2)
+
+ggplot(d, aes(x=log(Freq), y=Iconicity)) + geom_point()
+
+ggplot(d, aes(x=Iconicity, y=Residuals)) + geom_point()
+
+hist(d$Iconicity, breaks=50)
+
+summary(l.icon)
+```
+
+
+## Adjusted R2
+
+## Review: can you compute R2 manually for the below regression?
+```{r}
+l.icon = lm(data=d, Iconicity ~ POS + 
+              Conc + log(Freq))
+
+sse.l.icon = sum((d$Residuals)^2)
+var.icon = sum((d$Iconicity - mean(d$Iconicity))^2)
+1 - sse.l.icon/var.icon
+```
+
+## A problem with R2
+
+```{r}
+d$Noise = runif(nrow(d), -5, 5)
+d$MoreNoise = rnorm(nrow(d), 0, 1)
+# .11391
+l.icon = lm(data=d, Iconicity ~ POS + 
+              Conc + log(Freq) + 
+              Noise + MoreNoise)
+summary(l.icon) #.1157
+```
+# Why does Noise and MoreNoise help make predictions better?
+
+```{r}
+noise = rnorm(12, 0, 3)
+more.noise = rnorm(12, 0, 3)
+plot(noise, more.noise)
+summary(lm(more.noise ~ noise))
+```
+
+## Adjusted R2: 
+
+```{r}
+# N = number of data points
+# k = number of parameters
+summary(l.icon)
+R2 = .1157
+N = nrow(d)
+k = 10
+1 - ((1 - R2) * (N - 1))/(N - k - 1)
+
+R2 = .5
+N = 1000000
+k = 2
+(N - 1)/(N - k - 1)
+1 - ((1 - R2) * (N - 1))/(N - k - 1)
+
+R2 = .5
+N = 10
+k = 6
+(N - 1)/(N - k - 1)
+1 - ((1 - R2) * (N - 1))/(N - k - 1)
+
+
+```
