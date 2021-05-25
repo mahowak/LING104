@@ -89,17 +89,10 @@ l.cat.mult.2 = lm(data=d, RT ~ WrittenFrequency +
 summary(l.cat.mult.2)
 ```
 
-# More interpretable predictors by normalizing
+# Categorical predictors with more than one factor
 
 ```{r}
-d$WrittenFrequency.Normalized = (d$WrittenFrequency - mean(d$WrittenFrequency))/sd(d$WrittenFrequency)
-
-d$LengthInLetters.Normalized = (d$LengthInLetters - mean(d$LengthInLetters))/sd(d$LengthInLetters)
-
-d$AgeVariable.Normalized = (d$AgeVariable - mean(d$AgeVariable))/sd(d$AgeVariable)
-
-l.cat.mult.3 = lm(data=d, RT ~ WrittenFrequency.Normalized + 
-                  LengthInLetters.Normalized + AgeVariable.Normalized)
+d = read_csv("../textbook/data/perry_winter_2017_iconicity.csv")
 
 ```
 
