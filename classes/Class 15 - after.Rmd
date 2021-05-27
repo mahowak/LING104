@@ -1,0 +1,177 @@
+---
+title: "Class 15"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+d = read_csv("../textbook/data/winter_2016_senses_valence.csv") %>%
+  select(Word, Modality)
+
+d
+w = read_csv("../textbook/data/warriner_2013_emotional_valence.csv")
+w
+d.w = left_join(d, w)
+
+d.w = na.omit(d.w)
+arrange(d.w, -Val)
+
+d.w
+```
+
+# Take a look at data
+
+```{r}
+d = d.w
+group_by(d, Modality) %>%
+  summarise(mean.val = mean(Val))
+
+table(d.w$Modality)
+```
+
+# Histograms
+
+```{r fig.width=.7, fig.height=.7}
+ggplot(data=d, aes(x=Val)) + geom_histogram()
+```
+
+```{r fig.width=3, fig.height=.7}
+ggplot(data=d, aes(x=Val, fill=Modality)) + geom_histogram() +
+  facet_grid(. ~ Modality)
+
+d
+```
+
+
+# Review dummy coding
+
+```{r}
+d$IsSmell = as.integer(d$Modality == "Smell")
+d$IsSmell
+l = lm(data=d, Val ~ IsSmell)
+summary(l)
+```
+
+# Simulation-based approach
+
+```{r}
+d$Random.Val = sample(d$Val)
+group_by(d, IsSmell) %>%
+  summarise(m=mean(Val))
+group_by(d, IsSmell) %>%
+  summarise(m=mean(Random.Val))
+
+x = group_by(d, IsSmell) %>%
+  summarise(m=mean(Random.Val))
+
+a = NULL
+for (i in 1:10000) {
+  d$Random.Val = sample(d$Val)
+  x = group_by(d, IsSmell) %>%
+    summarise(m=mean(Random.Val))
+  diff = (x$m - lag(x$m))[2]
+  a = append(a, diff)
+}
+
+5.12 - 4.36
+
+mean(abs(a) > abs(5.12 - 4.36))
+```
+
+# Multiple categories
+
+```{r}
+l.mult = lm(data=d, Val ~ Modality)
+summary(l.mult)
+
+d$SmellVsSight = ifelse(d$Modality == "Smell", 1, 0)
+d$SoundVsSight = ifelse(d$Modality == "Sound", 1, 0)
+d$TasteVsSight = ifelse(d$Modality == "Taste", 1, 0)
+d$TouchVsSight = ifelse(d$Modality == "Touch", 1, 0)
+
+l.mult = lm(data=d, Val ~ Modality)
+summary(l.mult)
+
+l.mult.2 = lm(data=d, Val ~ SmellVsSight + 
+                SoundVsSight + TouchVsSight + TasteVsSight)
+summary(l.mult.2)
+```
+
+# Introduce sum coding
+
+```{r}
+levels(as.factor(d$Modality))
+contrasts(as.factor(d$Modality))
+
+d$Modality = as.factor(d$Modality)
+contrasts(d$Modality) = contr.sum(5)
+
+contrasts(d$Modality)
+
+l.sum = lm(data=d, Val ~ Modality)
+summary(l.sum)
+```
+
+# Grand mean: mean of the group means
+
+```{r}
+mean(d$Val)
+d.sum = group_by(d, Modality) %>%
+  summarise(m=mean(Val))
+
+mean(d.sum$m) # Grand mean!
+
+levels(d$Modality)
+
+d.sum
+
+contrasts(d$Modality)
+```
+
+# Bring in frequency!
+
+```{r}
+freq = read_tsv("../data/lexicons/out_en.txt") %>%
+  select(Word=word, count, length)
+d
+freq
+
+d = left_join(d, freq) 
+
+ggplot(d, aes(x=log(count), y=Val)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot(d, aes(x=log(count), y=Val)) +
+  geom_point() +
+  geom_smooth(method=lm)
+
+```
+
+# LM to assess count and valence relationship
+
+```{r}
+l.count.val = lm(data=d, Val ~ log(count))
+summary(l.count.val)
+```
+
+# Confounds: alternative explanations driving the observed pattern
+
+```{r}
+d$Centered.Log.Count = log(d$count) - mean(log(d$count))
+l.count.val.mod = lm(data=d, Val ~ Centered.Log.Count + Modality)
+summary(l.count.val.mod)
+
+d$Predictions = predict(l.count.val.mod)
+
+ggplot(d, aes(x=Val, Predictions)) + geom_point() +
+  facet_grid(. ~ Modality)
+```
+
+Interaction term
+```{r}
+l.count.val.mod.int = lm(data=d, Val ~ Centered.Log.Count * Modality)
+summary(l.count.val.mod.int)
+```
+
+
