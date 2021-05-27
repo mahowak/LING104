@@ -1,0 +1,25 @@
+---
+title: "Class 15"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+d = read_csv("../textbook/data/winter_2016_senses_valence.csv")
+```
+
+# Take a look at data
+
+# Review dummy coding
+
+# Introduce sum coding
+
+# Bring in frequency!
+
+```{r}
+freq = read_tsv("../data/lexicons/out_en.txt")
+```
+
+
+
+
