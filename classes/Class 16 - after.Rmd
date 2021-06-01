@@ -1,0 +1,100 @@
+---
+title: "Class 16"
+output: html_notebook
+---
+
+```{r width=2.5, height=2.5}
+library(tidyverse)
+d = read_csv("../pset3/Case_L2.csv")
+d$LogL1 = log(d$L1.Estimate + 1)
+d$LogL2 = log(d$L2.Estimate + 1)
+summary(d$Case.Presence)
+
+head(d)
+
+
+ggplot(d, aes(x=Percent.L2, y=Case.Presence)) +
+  geom_point() + 
+  geom_smooth(method=lm)
+
+
+logit = function(p) {log(p) - log(1-p)}
+logistic = function(x) {1/(1 + exp(-x))}
+```
+# Logit function
+
+```{r width=2.5, height=2.5}
+p = .5
+log(.5) - log(1 - .5)
+log(.99) - log(.01)
+log(.99) - log(.01)
+
+x = seq(0, 1, .001)
+plot(x, logit(x))
+
+
+logit(.7)
+logistic(.847)
+
+l.logistic = glm(data=d, Case.Presence ~ Percent.L2, family="binomial")
+summary(l.logistic)
+
+# predict: presence of case when there are 50% L2 speakers
+1.345 + -6.355 * .5
+logistic(1.345 + -6.355 * .5)
+
+d$Prediction = logistic(predict(l.logistic))
+d$Prediction.Binary = as.integer(d$Prediction > 0.5)
+
+ggplot(d, aes(x=Percent.L2, y=Case.Presence)) + geom_point() +
+  geom_point(data=d, aes(x=Percent.L2, y=Prediction), colour="red") 
+
+
+ggplot(d, aes(x=Percent.L2, y=Case.Presence)) + geom_jitter(width=.1, height=.1) +
+  geom_point(data=d, aes(x=Percent.L2, y=Prediction), colour="red")  +
+  geom_jitter(data=d, aes(x=Percent.L2, y=Prediction.Binary), 
+              colour="blue", width=.1, height=.1)  
+
+
+summary(l.logistic)
+
+```
+
+# Are data points independent?
+
+```{r}
+group_by(d, Stock) %>%
+  summarise(m=mean(Case.Presence))
+
+nrow(d)
+
+
+l.logistic.stock = glm(data=d, Case.Presence ~ Percent.L2 +
+                         Stock, family="binomial")
+summary(l.logistic.stock)
+
+d$Predict.stock = predict(l.logistic.stock)
+
+filter(d, Stock == "Mande")
+
+mean(d$Case.Presence)
+
+filter(d, Stock == "Austronesian")
+
+rbinom(7, 1, .4)
+
+```
+
+
+```{r}
+library(lme4)
+head(d)
+
+group_by(d, Region) %>%
+  summarise(m=mean(Case.Presence), n=n()) %>%
+  arrange(-m)
+
+gl = glmer(family="binomial", data=d,
+      Case.Presence ~ Percent.L2 + (1|Stock) + (1|Region))
+summary(gl)
+```
