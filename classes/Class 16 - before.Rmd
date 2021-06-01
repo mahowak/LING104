@@ -1,0 +1,15 @@
+---
+title: "Class 16"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+d = read_csv("../pset3/Case_L2.csv")
+d$LogL1 = log(d$L1.Estimate + 1)
+d$LogL2 = log(d$L2.Estimate + 1)
+summary(d$Case.Presence)
+
+logit = function(p) {log(p) - log(1-p)}
+logistic = function(x) {1/(1 + exp(-x))}
+```
